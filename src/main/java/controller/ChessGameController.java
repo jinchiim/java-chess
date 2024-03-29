@@ -42,7 +42,6 @@ public class ChessGameController {
         } while (isPlaying);
     }
 
-
     private boolean playGame(ChessBoard chessBoard) {
         List<String> commands = inputView.receiveCommands();
 
