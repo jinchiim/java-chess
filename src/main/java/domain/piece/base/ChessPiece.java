@@ -8,7 +8,13 @@ public interface ChessPiece {
 
     boolean isOpponentColor(Color color);
 
-    boolean isBlack();
+    boolean isSameColor(Color color);
+
+    boolean isKing();
+
+    boolean isPawn();
+
+    double getScore();
 
     Direction getDirection(Coordinate coordinate, Coordinate destination, boolean canAttack);
 }
