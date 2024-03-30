@@ -3,6 +3,7 @@ package controller;
 import command.Command;
 import domain.chessboard.ChessBoard;
 import domain.coordinate.Coordinate;
+import domain.piece.Color;
 import java.util.List;
 import view.InputView;
 import view.OutputView;
@@ -24,6 +25,7 @@ public class ChessGameController {
         outputView.printBoard(chessBoard.getBoard());
 
         startGame(chessBoard);
+        outputView.printResult(chessBoard.getBeforeTurn());
     }
 
     private ChessBoard initializeBoard() {
@@ -35,7 +37,6 @@ public class ChessGameController {
     }
 
     private void startGame(ChessBoard chessBoard) {
-
         boolean isPlaying;
         do {
             isPlaying = playGame(chessBoard);
@@ -46,8 +47,19 @@ public class ChessGameController {
         List<String> commands = inputView.receiveCommands();
 
         if (Command.isCommandMove(commands.get(0))) {
+            if (isLastTurn(chessBoard, commands)) {
+                move(chessBoard, commands);
+                outputView.printBoard(chessBoard.getBoard());
+                return false;
+            }
             move(chessBoard, commands);
             outputView.printBoard(chessBoard.getBoard());
+            return true;
+        }
+        if (Command.isStatusCommand(commands.get(0))) {
+            outputView.printBoard(chessBoard.getBoard());
+            outputView.printBlackStatus(chessBoard.calculateChessBoardScore(Color.BLACK));
+            outputView.printWhiteStatus(chessBoard.calculateChessBoardScore(Color.WHITE));
             return true;
         }
         return false;
@@ -58,5 +70,11 @@ public class ChessGameController {
         Coordinate destination = Coordinate.from(commands.get(2));
 
         chessBoard.playTurn(start, destination);
+    }
+
+    private boolean isLastTurn(ChessBoard chessBoard, List<String> commands) {
+        Coordinate destination = Coordinate.from(commands.get(2));
+
+        return chessBoard.isOpponentColorKing(destination);
     }
 }
