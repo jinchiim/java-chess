@@ -2,6 +2,7 @@ package view.translator;
 
 import domain.piece.Bishop;
 import domain.piece.Blank;
+import domain.piece.Color;
 import domain.piece.King;
 import domain.piece.Knight;
 import domain.piece.Queen;
@@ -36,7 +37,7 @@ public enum PieceTranslator {
         if (pieceTranslator.classType == Blank.class) {
             return pieceTranslator.name;
         }
-        if (piece.isBlack()) {
+        if (piece.isSameColor(Color.BLACK)) {
             return pieceTranslator.name.toUpperCase();
         }
         return pieceTranslator.name;
