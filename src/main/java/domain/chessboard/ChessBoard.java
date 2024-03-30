@@ -1,13 +1,16 @@
 package domain.chessboard;
 
 import domain.coordinate.Coordinate;
+import domain.coordinate.position.Column;
 import domain.direction.Direction;
 import domain.piece.Blank;
 import domain.piece.Color;
 import domain.piece.base.ChessPiece;
 import domain.piece.pawn.Pawn;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ChessBoard {
 
@@ -64,7 +67,7 @@ public class ChessBoard {
     }
 
     private void checkPath(Coordinate start, Coordinate destination, ChessPiece piece) {
-        boolean isAttack = isAttack(currentTurn, destination);
+        boolean isAttack = isAttack(destination);
         Direction direction = piece.getDirection(start, destination, isAttack);
         validateNoPieceOnPath(start, destination, direction);
 
@@ -101,13 +104,65 @@ public class ChessBoard {
         return board.get(coordinate);
     }
 
-    private boolean isAttack(Color current, Coordinate destination) {
+    private boolean isAttack(Coordinate destination) {
         ChessPiece destinationPiece = board.get(destination);
 
-        return destinationPiece.getClass() != Blank.class && destinationPiece.isOpponentColor(current);
+        return destinationPiece.getClass() != Blank.class && destinationPiece.isOpponentColor(currentTurn);
     }
 
     public Map<Coordinate, ChessPiece> getBoard() {
         return Collections.unmodifiableMap(board);
+    }
+
+    public boolean isOpponentColorKing(Coordinate destination) {
+        ChessPiece destinationPiece = board.get(destination);
+        if (destinationPiece.isOpponentColor(currentTurn)) {
+            return destinationPiece.isKing();
+        }
+        return false;
+    }
+
+    public Color getBeforeTurn() {
+        return changeTurn();
+    }
+
+    public double calculateChessBoardScore(Color color) {
+        List<ChessPiece> coloredPiece = board.values()
+                .stream()
+                .filter(chessPiece -> chessPiece.isSameColor(color))
+                .toList();
+
+        double totalScore = coloredPiece.stream()
+                .map(ChessPiece::getScore)
+                .mapToDouble(Double::doubleValue)
+                .sum();
+        return totalScore - 0.5 * countSameColumPawn(color);
+    }
+
+    private double countSameColumPawn(Color color) {
+        Map<Column, Long> eachColumnPawns = findEachColumnPawn(color);
+
+        return eachColumnPawns.values()
+                .stream()
+                .filter(pawnCount -> pawnCount > 1)
+                .mapToDouble(Long::doubleValue)
+                .sum();
+    }
+
+    private Map<Column, Long> findEachColumnPawn(Color color) {
+        return board.keySet().stream()
+                .filter(coordinate -> isSameColorPawn(coordinate, color))
+                .collect(Collectors.groupingBy(
+                        Coordinate::getColumn, Collectors.counting()
+                ));
+    }
+
+    private boolean isSameColorPawn(Coordinate coordinate, Color color) {
+        ChessPiece chessPiece = board.get(coordinate);
+
+        if (chessPiece.isPawn()) {
+            return chessPiece.isSameColor(color);
+        }
+        return false;
     }
 }
