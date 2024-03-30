@@ -41,6 +41,10 @@ public class Coordinate {
         return new Coordinate(row.next(direction.getRowDirection()), column.next(direction.getColumnDirection()));
     }
 
+    public Column getColumn() {
+        return column;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
