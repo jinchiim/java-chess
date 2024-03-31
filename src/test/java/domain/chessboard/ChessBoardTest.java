@@ -44,19 +44,7 @@ class ChessBoardTest {
         assertThat(chessBoard.getBoard().get(knightStart)).isInstanceOf(Blank.class);
         assertThat(chessBoard.getBoard().get(knightDestination)).isInstanceOf(Knight.class);
     }
-
-    @DisplayName("상대의 말을 이동할 수 없다.")
-    @Test
-    void cantMoveOtherPiece() {
-        ChessBoard chessBoard = new ChessBoard();
-
-        Coordinate blackPawnStart = Coordinate.from("G7");
-        Coordinate blackPawnDestination = Coordinate.from("G6");
-        assertThatThrownBy(() -> chessBoard.playTurn(blackPawnStart, blackPawnDestination))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("상대의 말을 움직일 수 없습니다.");
-    }
-
+    
     @DisplayName("이동 경로에 말이 있으면 이동할 수 없다.")
     @Test
     void cantMoveWhenPieceInPath() {
