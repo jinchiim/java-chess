@@ -42,7 +42,7 @@ public class ChessBoard {
     private void validateDestination(Coordinate destination, Color currentTurn) {
         ChessPiece chessPiece = findPiece(destination);
 
-        if (chessPiece.getClass() == Blank.class) {
+        if (chessPiece.isBlank()) {
             return;
         }
         if (!chessPiece.isOpponentColor(currentTurn)) {
@@ -85,7 +85,7 @@ public class ChessBoard {
             return;
         }
 
-        if (!findPiece(coordinate).getClass().equals(Blank.class)) {
+        if (!findPiece(coordinate).isBlank()) {
             throw new IllegalArgumentException("이동 경로에 말이 존재합니다.");
         }
     }
@@ -97,7 +97,7 @@ public class ChessBoard {
     private boolean isAttack(Coordinate destination) {
         ChessPiece destinationPiece = board.get(destination);
 
-        return destinationPiece.getClass() != Blank.class && destinationPiece.isOpponentColor(currentTurn);
+        return !destinationPiece.isBlank() && destinationPiece.isOpponentColor(currentTurn);
     }
 
     public Map<Coordinate, ChessPiece> getBoard() {
