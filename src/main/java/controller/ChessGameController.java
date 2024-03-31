@@ -48,21 +48,28 @@ public class ChessGameController {
 
         if (Command.isCommandMove(commands.get(0))) {
             if (isLastTurn(chessBoard, commands)) {
-                move(chessBoard, commands);
-                outputView.printBoard(chessBoard.getBoard());
+                movePiece(chessBoard, commands);
                 return false;
             }
-            move(chessBoard, commands);
-            outputView.printBoard(chessBoard.getBoard());
+            movePiece(chessBoard, commands);
             return true;
         }
         if (Command.isStatusCommand(commands.get(0))) {
-            outputView.printBoard(chessBoard.getBoard());
-            outputView.printBlackStatus(chessBoard.calculateChessBoardScore(Color.BLACK));
-            outputView.printWhiteStatus(chessBoard.calculateChessBoardScore(Color.WHITE));
+            showStatus(chessBoard);
             return true;
         }
         return false;
+    }
+
+    private void showStatus(ChessBoard chessBoard) {
+        outputView.printBoard(chessBoard.getBoard());
+        outputView.printBlackStatus(chessBoard.getChessBoardScore(Color.BLACK));
+        outputView.printWhiteStatus(chessBoard.getChessBoardScore(Color.WHITE));
+    }
+
+    private void movePiece(ChessBoard chessBoard, List<String> commands) {
+        move(chessBoard, commands);
+        outputView.printBoard(chessBoard.getBoard());
     }
 
     private void move(ChessBoard chessBoard, List<String> commands) {
@@ -74,7 +81,6 @@ public class ChessGameController {
 
     private boolean isLastTurn(ChessBoard chessBoard, List<String> commands) {
         Coordinate destination = Coordinate.from(commands.get(2));
-
         return chessBoard.isOpponentColorKing(destination);
     }
 }
