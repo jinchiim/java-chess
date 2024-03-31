@@ -17,8 +17,7 @@ public enum Command {
         return START.identifier.equals(identifier);
     }
 
-    public static boolean
-    isStatusCommand(String identifier) {
+    public static boolean isStatusCommand(String identifier) {
         return STATUS.identifier.equals(identifier);
     }
 
