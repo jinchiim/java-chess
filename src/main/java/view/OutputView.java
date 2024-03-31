@@ -11,7 +11,10 @@ import view.translator.PieceTranslator;
 
 public class OutputView {
 
-    public void printGameGuide() {
+    private OutputView() {
+    }
+
+    public static void printGameGuide() {
         System.out.print("""
                 > 체스 게임을 시작합니다.
                 > 게임 시작 : start
@@ -21,7 +24,7 @@ public class OutputView {
                 """);
     }
 
-    public void printBoard(Map<Coordinate, ChessPiece> board) {
+    public static void printBoard(Map<Coordinate, ChessPiece> board) {
         List<ChessPiece> boardValues = new ArrayList<>(board.values());
         int rowSize = ColumnSymbol.size();
 
@@ -35,19 +38,20 @@ public class OutputView {
         }
     }
 
-    private List<ChessPiece> getOneRowPieces(List<ChessPiece> boardValues, int row, int rowSize) {
+    private static List<ChessPiece> getOneRowPieces(List<ChessPiece> boardValues, int row, int rowSize) {
         return boardValues.subList(row, Math.min(row + rowSize, boardValues.size()));
     }
 
-    public void printResult(Color color) {
+    public static void printResult(Color color) {
         System.out.println(color + " 팀이 게임을 이겼습니다.");
     }
 
-    public void printBlackStatus(double blackScore) {
+    public static void printStatus(double blackScore, double whiteScore) {
         System.out.println(Color.BLACK + "의 점수는 " + blackScore + "입니다.");
+        System.out.println(Color.WHITE + "의 점수는 " + whiteScore + "입니다.");
     }
 
-    public void printWhiteStatus(double whiteScore) {
-        System.out.println(Color.WHITE + "의 점수는 " + whiteScore + "입니다.");
+    public static void printEndGuide() {
+        System.out.println("게임을 종료했습니다.");
     }
 }
