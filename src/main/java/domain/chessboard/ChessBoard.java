@@ -45,7 +45,7 @@ public class ChessBoard {
         if (chessPiece.isBlank()) {
             return;
         }
-        if (!chessPiece.isOpponentColor(currentTurn)) {
+        if (chessPiece.isSameColor(currentTurn)) {
             throw new IllegalArgumentException("같은 색의 말은 공격할 수 없습니다.");
         }
     }
