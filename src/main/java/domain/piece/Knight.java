@@ -23,6 +23,11 @@ public class Knight extends ChessPieceBase {
     }
 
     @Override
+    public boolean isBlank() {
+        return false;
+    }
+
+    @Override
     public boolean isKing() {
         return false;
     }

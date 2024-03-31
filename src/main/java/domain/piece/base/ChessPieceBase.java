@@ -25,6 +25,9 @@ public abstract class ChessPieceBase implements ChessPiece {
     public abstract boolean isKing();
 
     @Override
+    public abstract boolean isBlank();
+
+    @Override
     public boolean isOpponentColor(Color color) {
         return this.color != color;
     }

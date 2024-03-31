@@ -35,6 +35,11 @@ public class Bishop extends ChessPieceBase {
         return false;
     }
 
+    @Override
+    public boolean isBlank() {
+        return false;
+    }
+
     private int divideValueByAbs(int value) {
         if (value == 0) {
             return 0;

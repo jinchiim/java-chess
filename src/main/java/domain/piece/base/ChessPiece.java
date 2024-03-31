@@ -14,6 +14,8 @@ public interface ChessPiece {
 
     boolean isPawn();
 
+    boolean isBlank();
+
     double getScore();
 
     Direction getDirection(Coordinate coordinate, Coordinate destination, boolean canAttack);
