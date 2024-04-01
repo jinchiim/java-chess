@@ -1,18 +1,20 @@
 package domain.chessGame.base;
 
 import domain.coordinate.Coordinate;
+import domain.piece.Color;
 import domain.piece.base.ChessPiece;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import service.PieceService;
 
 class NotRunningGameTest {
 
     private static class NotRunningTestImpl extends NotRunningGame {
 
         @Override
-        public ChessGame start() {
+        public ChessGame start(PieceService pieceService) {
             return null;
         }
 
@@ -22,7 +24,17 @@ class NotRunningGameTest {
         }
 
         @Override
+        public Long getGameId() {
+            return null;
+        }
+
+        @Override
         public void show() {
+        }
+
+        @Override
+        public Color getTurn() {
+            return null;
         }
     }
 

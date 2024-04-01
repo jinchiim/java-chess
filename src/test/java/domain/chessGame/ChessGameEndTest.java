@@ -3,6 +3,7 @@ package domain.chessGame;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import service.PieceService;
 
 class ChessGameEndTest {
 
@@ -11,7 +12,7 @@ class ChessGameEndTest {
     void startAtChessGameEnd() {
         ChessGameEnd chessGameEnd = new ChessGameEnd();
 
-        Assertions.assertThatThrownBy(chessGameEnd::start)
+        Assertions.assertThatThrownBy(() -> chessGameEnd.start(new PieceService()))
                 .isInstanceOf(UnsupportedOperationException.class)
                 .hasMessage("게임이 이미 종료되었습니다.");
     }
