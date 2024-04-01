@@ -41,6 +41,7 @@ public class ChessGameDao implements ChessGameRepository {
     public void delete(Long gameId) throws SQLException {
         String query = "DELETE FROM chess_game " +
                 "WHERE id = ?";
+
         Connection connection = DatabaseConnection.getConnection();
 
         try {

@@ -48,6 +48,7 @@ public class PieceDao implements PieceRepository {
             statement.setString(3, column);
 
             ResultSet resultSet = statement.executeQuery();
+
             if (resultSet.next()) {
                 return resultSet.getLong("id");
             }
