@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import state.chessGame.base.ChessGameState;
 import view.translator.ColumnSymbol;
 import view.translator.PieceTranslator;
 
@@ -21,12 +22,23 @@ public class PieceService {
     }
 
     public void addPieces(Long gameId, Map<Coordinate, ChessPiece> board) throws SQLException {
-
         List<Piece> pieces = addInitPiece(board, gameId);
         pieceRepository.saveAll(gameId, pieces);
     }
 
-    public void updatePiece(Long gameId, Coordinate start, Coordinate destination) throws SQLException {
+    public ChessGameState updatePiece(List<String> inputCommand, ChessGameState chessGameState) throws SQLException {
+        Coordinate start = Coordinate.from(inputCommand.get(1));
+        Coordinate destination = Coordinate.from(inputCommand.get(2));
+
+        Long gameId = chessGameState.getGameId();
+        ChessGameState nextChessGameState = chessGameState.move(start, destination);
+
+        updateSinglePiece(gameId, start, destination);
+
+        return nextChessGameState;
+    }
+
+    private void updateSinglePiece(Long gameId, Coordinate start, Coordinate destination) throws SQLException {
         Long startPieceId = pieceRepository.findIdByRowAndColumnAndGameId(gameId, start.getRowPosition(),
                 start.getColumnPosition());
 
