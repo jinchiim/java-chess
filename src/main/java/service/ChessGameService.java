@@ -28,10 +28,8 @@ public class ChessGameService {
         return ChessStatusFactory.makeRunningChessGame(id);
     }
 
-    public ChessGameState deleteChessGame(ChessGameState chessGameState) throws SQLException {
-        ChessGameState endState = chessGameState.end();
+    public void deleteChessGame(ChessGameState chessGameState) throws SQLException {
         chessGameRepository.delete(chessGameState.getGameId());
-        return endState;
     }
 
     public GameScoreDto calculateScore(ChessGameState chessGameState) {
