@@ -48,11 +48,15 @@ public class DatabaseConnection {
 
     private static void closeConnection() {
         try {
-            if (!connection.isClosed()) {
-                connection.close();
-            }
+            closeIfNot();
         } catch (SQLException e) {
             throw new RuntimeException("데이터베이스 컨넥션을 닫는 것에 실패했습니다. : " + e.getMessage());
+        }
+    }
+
+    private static void closeIfNot() throws SQLException {
+        if (!connection.isClosed()) {
+            connection.close();
         }
     }
 
