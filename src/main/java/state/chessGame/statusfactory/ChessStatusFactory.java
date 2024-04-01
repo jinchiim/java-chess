@@ -18,8 +18,8 @@ public class ChessStatusFactory {
         return new ChessGameStateRunning(new ChessBoard(), gameId);
     }
 
-    public static ChessGameState makeEndChessGame() {
-        return new ChessGameStateEnd();
+    public static ChessGameState makeEndChessGame(Long gameId) {
+        return new ChessGameStateEnd(gameId);
     }
 
     public static ChessGameState makeKingCaughtChessGame(ChessBoard chessBoard, Color color, Long gameId) {

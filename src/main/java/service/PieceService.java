@@ -51,8 +51,8 @@ public class PieceService {
                 start.getColumnPosition());
     }
 
-    public void deletePieces(Long gameId) throws SQLException {
-        pieceRepository.delete(gameId);
+    public void deletePieces(ChessGameState chessGameState) throws SQLException {
+        pieceRepository.delete(chessGameState.getGameId());
     }
 
     private List<Piece> addInitPiece(Map<Coordinate, ChessPiece> board, Long gameId) {
