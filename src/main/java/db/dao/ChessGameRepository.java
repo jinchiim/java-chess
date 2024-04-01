@@ -8,4 +8,6 @@ public interface ChessGameRepository {
     Long save(ChessGame chessGame) throws SQLException;
 
     void delete(Long gameId) throws SQLException;
+
+    void updateChessGameById(Long gameId) throws SQLException;
 }
