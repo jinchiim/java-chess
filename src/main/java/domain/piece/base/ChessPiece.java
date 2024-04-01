@@ -18,5 +18,7 @@ public interface ChessPiece {
 
     double getScore();
 
+    Color getColor();
+
     Direction getDirection(Coordinate coordinate, Coordinate destination, boolean canAttack);
 }

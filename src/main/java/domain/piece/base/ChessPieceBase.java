@@ -38,6 +38,11 @@ public abstract class ChessPieceBase implements ChessPiece {
     }
 
     @Override
+    public Color getColor() {
+        return color;
+    }
+
+    @Override
     public double getScore() {
         return score.getScore();
     }
