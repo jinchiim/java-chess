@@ -5,17 +5,17 @@ import domain.piece.Color;
 import domain.piece.base.ChessPiece;
 import java.util.Map;
 import service.PieceService;
-import state.chessGame.base.ChessGame;
-import state.chessGame.base.NotRunningGame;
+import state.chessGame.base.ChessGameState;
+import state.chessGame.base.NotRunningGameState;
 import view.OutputView;
 
-public class ChessGameEnd extends NotRunningGame {
+public class ChessGameStateEnd extends NotRunningGameState {
 
-    public ChessGameEnd() {
+    public ChessGameStateEnd() {
     }
 
     @Override
-    public ChessGame start(PieceService pieceService) {
+    public ChessGameState start(PieceService pieceService) {
         throw new UnsupportedOperationException("게임이 이미 종료되었습니다.");
     }
 

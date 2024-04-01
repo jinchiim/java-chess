@@ -2,27 +2,27 @@ package state.chessGame.statusfactory;
 
 import domain.chessboard.ChessBoard;
 import domain.piece.Color;
-import state.chessGame.ChessGameEnd;
-import state.chessGame.ChessGameKingCaught;
-import state.chessGame.ChessGameRunning;
-import state.chessGame.InitialChessGame;
-import state.chessGame.base.ChessGame;
+import state.chessGame.ChessGameStateEnd;
+import state.chessGame.ChessGameStateKingCaught;
+import state.chessGame.ChessGameStateRunning;
+import state.chessGame.InitialChessGameState;
+import state.chessGame.base.ChessGameState;
 
 public class ChessStatusFactory {
 
-    public static ChessGame initChessGame() {
-        return new InitialChessGame();
+    public static ChessGameState initChessGame() {
+        return new InitialChessGameState();
     }
 
-    public static ChessGame makeRunningChessGame(Long gameId) {
-        return new ChessGameRunning(new ChessBoard(), gameId);
+    public static ChessGameState makeRunningChessGame(Long gameId) {
+        return new ChessGameStateRunning(new ChessBoard(), gameId);
     }
 
-    public static ChessGame makeEndChessGame() {
-        return new ChessGameEnd();
+    public static ChessGameState makeEndChessGame() {
+        return new ChessGameStateEnd();
     }
 
-    public static ChessGame makeKingCaughtChessGame(ChessBoard chessBoard, Color color, Long gameId) {
-        return new ChessGameKingCaught(chessBoard, color, gameId);
+    public static ChessGameState makeKingCaughtChessGame(ChessBoard chessBoard, Color color, Long gameId) {
+        return new ChessGameStateKingCaught(chessBoard, color, gameId);
     }
 }

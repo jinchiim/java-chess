@@ -7,23 +7,23 @@ import java.sql.SQLException;
 import java.util.Map;
 import service.ChessGameService;
 import service.PieceService;
-import state.chessGame.base.ChessGame;
-import state.chessGame.base.NotRunningGame;
+import state.chessGame.base.ChessGameState;
+import state.chessGame.base.NotRunningGameState;
 import state.chessGame.statusfactory.ChessStatusFactory;
 
-public class InitialChessGame extends NotRunningGame {
+public class InitialChessGameState extends NotRunningGameState {
 
-    public InitialChessGame() {
+    public InitialChessGameState() {
     }
 
     @Override
-    public ChessGame start(PieceService pieceService) throws SQLException {
+    public ChessGameState start(PieceService pieceService) throws SQLException {
         Long id = new ChessGameService().addChessGame();
 
-        ChessGame chessGame = ChessStatusFactory.makeRunningChessGame(id);
-        pieceService.addPieces(id, chessGame.getBoard());
+        ChessGameState chessGameState = ChessStatusFactory.makeRunningChessGame(id);
+        pieceService.addPieces(id, chessGameState.getBoard());
 
-        return chessGame;
+        return chessGameState;
     }
 
     @Override

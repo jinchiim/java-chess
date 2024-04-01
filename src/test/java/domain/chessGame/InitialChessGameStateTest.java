@@ -3,14 +3,14 @@ package domain.chessGame;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import state.chessGame.InitialChessGame;
+import state.chessGame.InitialChessGameState;
 
-class InitialChessGameTest {
+class InitialChessGameStateTest {
 
     @DisplayName("초기 상태에서 보드를 가져오려고 할 경우 에러를 발생한다.")
     @Test
     void getBoardAtInitialState() {
-        InitialChessGame initialChessGame = new InitialChessGame();
+        InitialChessGameState initialChessGame = new InitialChessGameState();
 
         Assertions.assertThatThrownBy(initialChessGame::getBoard)
                 .isInstanceOf(IllegalArgumentException.class)
@@ -20,7 +20,7 @@ class InitialChessGameTest {
     @DisplayName("초기 상태에서 상태를 보려고 할 경우 에러를 발생한다.")
     @Test
     void showAtInitialState() {
-        InitialChessGame initialChessGame = new InitialChessGame();
+        InitialChessGameState initialChessGame = new InitialChessGameState();
 
         Assertions.assertThatThrownBy(initialChessGame::show)
                 .isInstanceOf(IllegalArgumentException.class)

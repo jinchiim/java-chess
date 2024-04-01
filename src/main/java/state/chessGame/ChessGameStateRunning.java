@@ -6,30 +6,30 @@ import domain.piece.Color;
 import domain.piece.base.ChessPiece;
 import java.util.Map;
 import service.PieceService;
-import state.chessGame.base.ChessGame;
+import state.chessGame.base.ChessGameState;
 import state.chessGame.statusfactory.ChessStatusFactory;
 import view.OutputView;
 
-public class ChessGameRunning implements ChessGame {
+public class ChessGameStateRunning implements ChessGameState {
 
     private final ChessBoard chessBoard;
     private final Long gameId;
 
     private Color currentTurn;
 
-    public ChessGameRunning(ChessBoard chessBoard, Long gameId) {
+    public ChessGameStateRunning(ChessBoard chessBoard, Long gameId) {
         this.chessBoard = chessBoard;
         this.gameId = gameId;
         this.currentTurn = Color.WHITE;
     }
 
     @Override
-    public ChessGame start(PieceService pieceService) {
+    public ChessGameState start(PieceService pieceService) {
         throw new UnsupportedOperationException("이미 시작된 상태입니다.");
     }
 
     @Override
-    public ChessGame move(Coordinate start, Coordinate destination) {
+    public ChessGameState move(Coordinate start, Coordinate destination) {
         validateCanMove(start, destination);
         if (chessBoard.isOpponentColorKing(destination, currentTurn)) {
             chessBoard.playTurn(start, destination);
@@ -49,7 +49,7 @@ public class ChessGameRunning implements ChessGame {
     }
 
     @Override
-    public ChessGame end() {
+    public ChessGameState end() {
         return ChessStatusFactory.makeEndChessGame();
     }
 

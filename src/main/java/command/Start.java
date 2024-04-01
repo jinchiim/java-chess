@@ -4,7 +4,7 @@ import command.base.Command;
 import java.sql.SQLException;
 import java.util.List;
 import service.PieceService;
-import state.chessGame.base.ChessGame;
+import state.chessGame.base.ChessGameState;
 
 public class Start implements Command {
 
@@ -12,9 +12,10 @@ public class Start implements Command {
     }
 
     @Override
-    public ChessGame execute(ChessGame chessGame, List<String> inputCommand, PieceService pieceService)
+    public ChessGameState execute(ChessGameState chessGameState, List<String> inputCommand,
+                                  PieceService pieceService)
             throws SQLException {
-        chessGame = chessGame.start(pieceService);
-        return chessGame;
+        chessGameState = chessGameState.start(pieceService);
+        return chessGameState;
     }
 }

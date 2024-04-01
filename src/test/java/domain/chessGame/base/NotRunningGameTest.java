@@ -7,16 +7,17 @@ import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import service.ChessGameService;
 import service.PieceService;
-import state.chessGame.base.ChessGame;
-import state.chessGame.base.NotRunningGame;
+import state.chessGame.base.ChessGameState;
+import state.chessGame.base.NotRunningGameState;
 
 class NotRunningGameTest {
 
-    private static class NotRunningTestImpl extends NotRunningGame {
+    private static class NotRunningTestImpl extends NotRunningGameState {
 
         @Override
-        public ChessGame start(PieceService pieceService) {
+        public ChessGameState start(PieceService pieceService, ChessGameService chessGameService) {
             return null;
         }
 

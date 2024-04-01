@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 import service.ChessGameService;
 import service.PieceService;
-import state.chessGame.base.ChessGame;
+import state.chessGame.base.ChessGameState;
 import state.chessGame.statusfactory.ChessStatusFactory;
 import view.InputView;
 import view.OutputView;
@@ -22,17 +22,17 @@ public class ChessGameController {
     }
 
     public void run() throws SQLException {
-        ChessGame chessGame = ChessStatusFactory.initChessGame();
+        ChessGameState chessGameState = ChessStatusFactory.initChessGame();
         OutputView.printGameGuide();
         do {
             List<String> inputCommand = InputView.receiveCommands();
             Command command = Commands.findCommand(inputCommand.get(0));
 
-            chessGame = command.execute(chessGame, inputCommand, pieceService);
-            chessGame.show();
-        } while (chessGame.isPlaying());
+            chessGameState = command.execute(chessGameState, inputCommand, pieceService);
+            chessGameState.show();
+        } while (chessGameState.isPlaying());
 
-        pieceService.deletePieces(chessGame.getGameId());
-        chessGameService.deleteChessGame(chessGame.getGameId());
+        pieceService.deletePieces(chessGameState.getGameId());
+        chessGameService.deleteChessGame(chessGameState.getGameId());
     }
 }

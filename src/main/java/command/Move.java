@@ -5,7 +5,7 @@ import domain.coordinate.Coordinate;
 import java.sql.SQLException;
 import java.util.List;
 import service.PieceService;
-import state.chessGame.base.ChessGame;
+import state.chessGame.base.ChessGameState;
 
 public class Move implements Command {
 
@@ -13,13 +13,13 @@ public class Move implements Command {
     }
 
     @Override
-    public ChessGame execute(ChessGame chessGame, List<String> inputCommand, PieceService pieceService)
+    public ChessGameState execute(ChessGameState chessGameState, List<String> inputCommand, PieceService pieceService)
             throws SQLException {
         Coordinate start = Coordinate.from(inputCommand.get(1));
         Coordinate destination = Coordinate.from(inputCommand.get(2));
-        ChessGame nextChessGame = chessGame.move(start, destination);
+        ChessGameState nextChessGameState = chessGameState.move(start, destination);
 
-        pieceService.updatePiece(nextChessGame.getGameId(), start, destination);
-        return nextChessGame;
+        pieceService.updatePiece(nextChessGameState.getGameId(), start, destination);
+        return nextChessGameState;
     }
 }

@@ -7,13 +7,13 @@ import java.sql.SQLException;
 import java.util.Map;
 import service.PieceService;
 
-public interface ChessGame {
+public interface ChessGameState {
 
-    ChessGame start(PieceService pieceService) throws SQLException;
+    ChessGameState start(PieceService pieceService) throws SQLException;
 
-    ChessGame move(Coordinate start, Coordinate destination);
+    ChessGameState move(Coordinate start, Coordinate destination);
 
-    ChessGame end();
+    ChessGameState end();
 
     boolean isPlaying();
 

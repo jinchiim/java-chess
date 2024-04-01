@@ -21,6 +21,7 @@ public class PieceService {
     }
 
     public void addPieces(Long gameId, Map<Coordinate, ChessPiece> board) throws SQLException {
+
         List<Piece> pieces = addInitPiece(board, gameId);
         pieceRepository.saveAll(gameId, pieces);
     }
