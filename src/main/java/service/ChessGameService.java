@@ -28,9 +28,9 @@ public class ChessGameService {
         return ChessStatusFactory.makeRunningChessGame(id);
     }
 
-    public ChessGameState deleteChessGame(Long gameId, ChessGameState chessGameState) throws SQLException {
+    public ChessGameState deleteChessGame(ChessGameState chessGameState) throws SQLException {
         ChessGameState endState = chessGameState.end();
-        chessGameRepository.delete(gameId);
+        chessGameRepository.delete(chessGameState.getGameId());
         return endState;
     }
 
@@ -41,5 +41,10 @@ public class ChessGameService {
         double whiteScore = ChessBoardScoreCalculator.calculate(Color.WHITE, board);
 
         return new GameScoreDto(blackScore, whiteScore);
+    }
+
+    public ChessGameState stopChessGame(ChessGameState chessGameState) throws SQLException {
+        chessGameRepository.updateChessGameById(chessGameState.getGameId());
+        return chessGameState.end();
     }
 }

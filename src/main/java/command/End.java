@@ -12,8 +12,7 @@ public class End implements Command {
     @Override
     public ChessGameState execute(ChessGameService chessGameService, List<String> inputCommand,
                                   PieceService pieceService, ChessGameState chessGameState) throws SQLException {
-        Long gameId = chessGameState.getGameId();
-        pieceService.deletePieces(gameId);
-        return chessGameService.deleteChessGame(gameId, chessGameState);
+        ChessGameState endState = chessGameService.stopChessGame(chessGameState);
+        return endState;
     }
 }
