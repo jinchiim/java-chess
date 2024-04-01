@@ -18,6 +18,8 @@ public interface ChessGameState {
 
     boolean isPlaying();
 
+    boolean isKingCaught();
+
     Map<Coordinate, ChessPiece> getBoard();
 
     Long getGameId();
