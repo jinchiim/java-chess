@@ -1,14 +1,19 @@
 package command;
 
 import command.base.Command;
+import java.sql.SQLException;
 import java.util.List;
+import service.ChessGameService;
 import service.PieceService;
 import state.chessGame.base.ChessGameState;
 
 public class End implements Command {
 
     @Override
-    public ChessGameState execute(ChessGameState chessGameState, List<String> inputCommand, PieceService pieceService) {
-        return chessGameState.end();
+    public ChessGameState execute(ChessGameService chessGameService, List<String> inputCommand,
+                                  PieceService pieceService, ChessGameState chessGameState) throws SQLException {
+        Long gameId = chessGameState.getGameId();
+        pieceService.deletePieces(gameId);
+        return chessGameService.deleteChessGame(gameId, chessGameState);
     }
 }

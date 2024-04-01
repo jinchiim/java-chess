@@ -14,7 +14,7 @@ class ChessGameStateEndTest {
     void startAtChessGameEnd() {
         ChessGameStateEnd chessGameEnd = new ChessGameStateEnd();
 
-        Assertions.assertThatThrownBy(() -> chessGameEnd.start(new PieceService(), new ChessGameService()))
+        Assertions.assertThatThrownBy(() -> chessGameEnd.start(new ChessGameService(), new PieceService()))
                 .isInstanceOf(UnsupportedOperationException.class)
                 .hasMessage("게임이 이미 종료되었습니다.");
     }

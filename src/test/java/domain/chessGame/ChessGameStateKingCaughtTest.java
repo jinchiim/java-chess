@@ -5,6 +5,7 @@ import domain.piece.Color;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import service.ChessGameService;
 import service.PieceService;
 import state.chessGame.ChessGameStateKingCaught;
 
@@ -15,7 +16,7 @@ class ChessGameStateKingCaughtTest {
     void startChessGameAtKingCaught() {
         ChessGameStateKingCaught chessGameKingCaught = new ChessGameStateKingCaught(new ChessBoard(), Color.WHITE, 0L);
 
-        Assertions.assertThatThrownBy(() -> chessGameKingCaught.start(new PieceService()))
+        Assertions.assertThatThrownBy(() -> chessGameKingCaught.start(new ChessGameService(), new PieceService()))
                 .isInstanceOf(UnsupportedOperationException.class)
                 .hasMessage("게임이 이미 종료되었습니다.");
     }

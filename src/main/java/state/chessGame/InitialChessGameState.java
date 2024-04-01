@@ -9,7 +9,6 @@ import service.ChessGameService;
 import service.PieceService;
 import state.chessGame.base.ChessGameState;
 import state.chessGame.base.NotRunningGameState;
-import state.chessGame.statusfactory.ChessStatusFactory;
 
 public class InitialChessGameState extends NotRunningGameState {
 
@@ -17,11 +16,9 @@ public class InitialChessGameState extends NotRunningGameState {
     }
 
     @Override
-    public ChessGameState start(PieceService pieceService) throws SQLException {
-        Long id = new ChessGameService().addChessGame();
-
-        ChessGameState chessGameState = ChessStatusFactory.makeRunningChessGame(id);
-        pieceService.addPieces(id, chessGameState.getBoard());
+    public ChessGameState start(ChessGameService chessGameService, PieceService pieceService) throws SQLException {
+        ChessGameState chessGameState = chessGameService.addChessGame();
+        pieceService.addPieces(chessGameState.getGameId(), chessGameState.getBoard());
 
         return chessGameState;
     }

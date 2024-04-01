@@ -1,9 +1,9 @@
 package command;
 
 import command.base.Command;
-import domain.coordinate.Coordinate;
 import java.sql.SQLException;
 import java.util.List;
+import service.ChessGameService;
 import service.PieceService;
 import state.chessGame.base.ChessGameState;
 
@@ -13,13 +13,9 @@ public class Move implements Command {
     }
 
     @Override
-    public ChessGameState execute(ChessGameState chessGameState, List<String> inputCommand, PieceService pieceService)
+    public ChessGameState execute(ChessGameService chessGameService, List<String> inputCommand,
+                                  PieceService pieceService, ChessGameState chessGameState)
             throws SQLException {
-        Coordinate start = Coordinate.from(inputCommand.get(1));
-        Coordinate destination = Coordinate.from(inputCommand.get(2));
-        ChessGameState nextChessGameState = chessGameState.move(start, destination);
-
-        pieceService.updatePiece(nextChessGameState.getGameId(), start, destination);
-        return nextChessGameState;
+        return pieceService.updatePiece(inputCommand, chessGameState);
     }
 }

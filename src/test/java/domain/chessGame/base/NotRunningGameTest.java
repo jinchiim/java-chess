@@ -17,7 +17,7 @@ class NotRunningGameTest {
     private static class NotRunningTestImpl extends NotRunningGameState {
 
         @Override
-        public ChessGameState start(PieceService pieceService, ChessGameService chessGameService) {
+        public ChessGameState start(ChessGameService chessGameService, PieceService pieceService) {
             return null;
         }
 

@@ -5,6 +5,7 @@ import domain.coordinate.Coordinate;
 import domain.piece.Color;
 import domain.piece.base.ChessPiece;
 import java.util.Map;
+import service.ChessGameService;
 import service.PieceService;
 import state.chessGame.base.ChessGameState;
 import state.chessGame.statusfactory.ChessStatusFactory;
@@ -24,7 +25,7 @@ public class ChessGameStateRunning implements ChessGameState {
     }
 
     @Override
-    public ChessGameState start(PieceService pieceService) {
+    public ChessGameState start(ChessGameService chessGameService, PieceService pieceService) {
         throw new UnsupportedOperationException("이미 시작된 상태입니다.");
     }
 

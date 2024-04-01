@@ -17,7 +17,7 @@ class ChessGameStateRunningTest {
     void startChessGameAtStart() {
         ChessGameStateRunning chessGameRunning = new ChessGameStateRunning(new ChessBoard(), 0L);
 
-        Assertions.assertThatThrownBy(() -> chessGameRunning.start(new PieceService(), new ChessGameService()))
+        Assertions.assertThatThrownBy(() -> chessGameRunning.start(new ChessGameService(), new PieceService()))
                 .isInstanceOf(UnsupportedOperationException.class)
                 .hasMessage("이미 시작된 상태입니다.");
     }

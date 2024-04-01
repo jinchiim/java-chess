@@ -3,6 +3,7 @@ package command;
 import command.base.Command;
 import java.sql.SQLException;
 import java.util.List;
+import service.ChessGameService;
 import service.PieceService;
 import state.chessGame.base.ChessGameState;
 
@@ -12,10 +13,11 @@ public class Start implements Command {
     }
 
     @Override
-    public ChessGameState execute(ChessGameState chessGameState, List<String> inputCommand,
-                                  PieceService pieceService)
+    public ChessGameState execute(ChessGameService chessGameService, List<String> inputCommand,
+                                  PieceService pieceService, ChessGameState chessGameState)
             throws SQLException {
-        chessGameState = chessGameState.start(pieceService);
+        chessGameState = chessGameService.addChessGame();
+        pieceService.addPieces(chessGameState.getGameId(), chessGameState.getBoard());
         return chessGameState;
     }
 }
