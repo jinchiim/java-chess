@@ -14,15 +14,15 @@ public class ChessStatusFactory {
         return new InitialChessGame();
     }
 
-    public static ChessGame makeRunningChessGame() {
-        return new ChessGameRunning(new ChessBoard());
+    public static ChessGame makeRunningChessGame(Long gameId) {
+        return new ChessGameRunning(new ChessBoard(), gameId);
     }
 
     public static ChessGame makeEndChessGame() {
         return new ChessGameEnd();
     }
 
-    public static ChessGame makeKingCaughtChessGame(ChessBoard chessBoard, Color color) {
-        return new ChessGameKingCaught(chessBoard, color);
+    public static ChessGame makeKingCaughtChessGame(ChessBoard chessBoard, Color color, Long gameId) {
+        return new ChessGameKingCaught(chessBoard, color, gameId);
     }
 }
