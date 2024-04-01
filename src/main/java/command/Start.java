@@ -14,8 +14,7 @@ public class Start implements Command {
 
     @Override
     public ChessGameState execute(ChessGameService chessGameService, List<String> inputCommand,
-                                  PieceService pieceService, ChessGameState chessGameState)
-            throws SQLException {
+                                  PieceService pieceService, ChessGameState chessGameState) throws SQLException {
         chessGameState = chessGameService.addChessGame();
         pieceService.addPieces(chessGameState.getGameId(), chessGameState.getBoard());
         return chessGameState;
