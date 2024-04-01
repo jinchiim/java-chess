@@ -1,5 +1,9 @@
-package command;
+package command.base;
 
+import command.End;
+import command.Move;
+import command.Start;
+import command.Status;
 import java.util.Arrays;
 
 public enum Commands {
