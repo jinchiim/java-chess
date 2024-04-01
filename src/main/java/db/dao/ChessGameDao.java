@@ -14,13 +14,12 @@ public class ChessGameDao implements ChessGameRepository {
     public Long save(ChessGame chessGame) throws SQLException {
         String query = "INSERT INTO chess_game " +
                 "(id, is_running) " +
-                "VALUES(DEFAULT, ?)";
+                "VALUES(DEFAULT, true)";
         Connection connection = DatabaseConnection.getConnection();
 
         try {
             connection.setAutoCommit(false);
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, chessGame.isRunning());
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
@@ -54,6 +53,27 @@ public class ChessGameDao implements ChessGameRepository {
         } catch (SQLException e) {
             connection.rollback();
             throw new RuntimeException("데이터베이스 삭제에 실패했습니다." + e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateChessGameById(Long gameId) throws SQLException {
+        String query = "UPDATE chess_game " +
+                "SET is_running = false " +
+                "WHERE id = ?";
+
+        Connection connection = DatabaseConnection.getConnection();
+
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement.setLong(1, gameId);
+            statement.executeUpdate();
+
+            connection.commit();
+        } catch (SQLException e) {
+            connection.rollback();
+            throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
 }
