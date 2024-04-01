@@ -21,7 +21,7 @@ public enum PieceTranslator {
     KNIGHT(Knight.class, "n"),
     WHITE_PAWN(WhitePawn.class, "p"),
     BLACK_PAWN(BlackPawn.class, "P"),
-    NONE(Blank.class, ".");
+    BLANK(Blank.class, ".");
 
     private final Class<? extends ChessPiece> classType;
     private final String name;
@@ -43,7 +43,7 @@ public enum PieceTranslator {
         return pieceTranslator.name;
     }
 
-    private static PieceTranslator from(ChessPiece chessPiece) {
+    public static PieceTranslator from(ChessPiece chessPiece) {
         return Arrays.stream(values())
                 .filter(piece -> piece.classType == chessPiece.getClass())
                 .findAny()
