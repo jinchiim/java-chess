@@ -51,7 +51,7 @@ public class ChessGameStateRunning implements ChessGameState {
 
     @Override
     public ChessGameState end() {
-        return ChessStatusFactory.makeEndChessGame();
+        return ChessStatusFactory.makeEndChessGame(gameId);
     }
 
     @Override
@@ -62,6 +62,11 @@ public class ChessGameStateRunning implements ChessGameState {
     @Override
     public Map<Coordinate, ChessPiece> getBoard() {
         return chessBoard.getBoard();
+    }
+
+    @Override
+    public boolean isKingCaught() {
+        return false;
     }
 
     @Override

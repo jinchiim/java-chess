@@ -12,7 +12,10 @@ import view.OutputView;
 
 public class ChessGameStateEnd extends NotRunningGameState {
 
-    public ChessGameStateEnd() {
+    private final Long gameId;
+
+    public ChessGameStateEnd(Long gameId) {
+        this.gameId = gameId;
     }
 
     @Override
@@ -26,8 +29,13 @@ public class ChessGameStateEnd extends NotRunningGameState {
     }
 
     @Override
+    public boolean isKingCaught() {
+        return false;
+    }
+
+    @Override
     public Long getGameId() {
-        throw new UnsupportedOperationException("게임이 종료되어 id 를 불러올 수 없습니다.");
+        return gameId;
     }
 
     @Override

@@ -34,6 +34,11 @@ public class ChessGameStateKingCaught extends NotRunningGameState {
     }
 
     @Override
+    public boolean isKingCaught() {
+        return true;
+    }
+
+    @Override
     public Long getGameId() {
         return gameId;
     }

@@ -29,6 +29,11 @@ public class InitialChessGameState extends NotRunningGameState {
     }
 
     @Override
+    public boolean isKingCaught() {
+        return false;
+    }
+
+    @Override
     public void show() {
         throw new IllegalArgumentException("아직 시작하지 않아 보여줄 상태가 없습니다.");
     }
