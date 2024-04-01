@@ -1,4 +1,4 @@
-package domain.chessGame.base;
+package state.chessGame.base;
 
 import domain.coordinate.Coordinate;
 import domain.piece.Color;

@@ -2,12 +2,12 @@ package controller;
 
 import command.base.Command;
 import command.base.Commands;
-import domain.chessGame.base.ChessGame;
-import domain.chessGame.statusfactory.ChessStatusFactory;
 import java.sql.SQLException;
 import java.util.List;
 import service.ChessGameService;
 import service.PieceService;
+import state.chessGame.base.ChessGame;
+import state.chessGame.statusfactory.ChessStatusFactory;
 import view.InputView;
 import view.OutputView;
 

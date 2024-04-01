@@ -1,9 +1,9 @@
 package command;
 
 import command.base.Command;
-import domain.chessGame.base.ChessGame;
 import java.util.List;
 import service.PieceService;
+import state.chessGame.base.ChessGame;
 
 public class End implements Command {
 

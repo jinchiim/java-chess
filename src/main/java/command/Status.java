@@ -1,7 +1,6 @@
 package command;
 
 import command.base.Command;
-import domain.chessGame.base.ChessGame;
 import domain.chessboard.ChessBoardScoreCalculator;
 import domain.coordinate.Coordinate;
 import domain.piece.Color;
@@ -9,6 +8,7 @@ import domain.piece.base.ChessPiece;
 import java.util.List;
 import java.util.Map;
 import service.PieceService;
+import state.chessGame.base.ChessGame;
 import view.OutputView;
 
 public class Status implements Command {

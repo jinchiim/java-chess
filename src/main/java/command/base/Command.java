@@ -1,9 +1,9 @@
 package command.base;
 
-import domain.chessGame.base.ChessGame;
 import java.sql.SQLException;
 import java.util.List;
 import service.PieceService;
+import state.chessGame.base.ChessGame;
 
 public interface Command {
 

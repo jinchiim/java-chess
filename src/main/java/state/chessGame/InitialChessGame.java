@@ -1,8 +1,5 @@
-package domain.chessGame;
+package state.chessGame;
 
-import domain.chessGame.base.ChessGame;
-import domain.chessGame.base.NotRunningGame;
-import domain.chessGame.statusfactory.ChessStatusFactory;
 import domain.coordinate.Coordinate;
 import domain.piece.Color;
 import domain.piece.base.ChessPiece;
@@ -10,6 +7,9 @@ import java.sql.SQLException;
 import java.util.Map;
 import service.ChessGameService;
 import service.PieceService;
+import state.chessGame.base.ChessGame;
+import state.chessGame.base.NotRunningGame;
+import state.chessGame.statusfactory.ChessStatusFactory;
 
 public class InitialChessGame extends NotRunningGame {
 

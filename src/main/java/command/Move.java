@@ -1,11 +1,11 @@
 package command;
 
 import command.base.Command;
-import domain.chessGame.base.ChessGame;
 import domain.coordinate.Coordinate;
 import java.sql.SQLException;
 import java.util.List;
 import service.PieceService;
+import state.chessGame.base.ChessGame;
 
 public class Move implements Command {
 

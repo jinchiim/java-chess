@@ -1,12 +1,12 @@
-package domain.chessGame.statusfactory;
+package state.chessGame.statusfactory;
 
-import domain.chessGame.ChessGameEnd;
-import domain.chessGame.ChessGameKingCaught;
-import domain.chessGame.ChessGameRunning;
-import domain.chessGame.InitialChessGame;
-import domain.chessGame.base.ChessGame;
 import domain.chessboard.ChessBoard;
 import domain.piece.Color;
+import state.chessGame.ChessGameEnd;
+import state.chessGame.ChessGameKingCaught;
+import state.chessGame.ChessGameRunning;
+import state.chessGame.InitialChessGame;
+import state.chessGame.base.ChessGame;
 
 public class ChessStatusFactory {
 

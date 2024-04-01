@@ -1,12 +1,13 @@
 package domain.chessGame;
 
-import domain.chessGame.base.ChessGame;
 import domain.chessboard.ChessBoard;
 import domain.coordinate.Coordinate;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import service.PieceService;
+import state.chessGame.ChessGameRunning;
+import state.chessGame.base.ChessGame;
 
 class ChessGameRunningTest {
 

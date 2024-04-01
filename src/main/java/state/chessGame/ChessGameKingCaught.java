@@ -1,13 +1,13 @@
-package domain.chessGame;
+package state.chessGame;
 
-import domain.chessGame.base.ChessGame;
-import domain.chessGame.base.NotRunningGame;
 import domain.chessboard.ChessBoard;
 import domain.coordinate.Coordinate;
 import domain.piece.Color;
 import domain.piece.base.ChessPiece;
 import java.util.Map;
 import service.PieceService;
+import state.chessGame.base.ChessGame;
+import state.chessGame.base.NotRunningGame;
 import view.OutputView;
 
 public class ChessGameKingCaught extends NotRunningGame {

@@ -1,13 +1,13 @@
-package domain.chessGame;
+package state.chessGame;
 
-import domain.chessGame.base.ChessGame;
-import domain.chessGame.statusfactory.ChessStatusFactory;
 import domain.chessboard.ChessBoard;
 import domain.coordinate.Coordinate;
 import domain.piece.Color;
 import domain.piece.base.ChessPiece;
 import java.util.Map;
 import service.PieceService;
+import state.chessGame.base.ChessGame;
+import state.chessGame.statusfactory.ChessStatusFactory;
 import view.OutputView;
 
 public class ChessGameRunning implements ChessGame {
