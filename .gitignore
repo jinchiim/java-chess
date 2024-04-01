@@ -33,5 +33,5 @@ out/
 
 ### Docker
 
-/docker/**
-/docker/db/**
+/docker/db/mysql/config/**
+/docker/db/mysql/data/**
