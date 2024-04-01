@@ -6,6 +6,7 @@ import domain.piece.base.ChessPiece;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import service.dto.GameScoreDto;
 import view.translator.ColumnSymbol;
 import view.translator.PieceTranslator;
 
@@ -46,9 +47,9 @@ public class OutputView {
         System.out.println(color + " 팀이 게임을 이겼습니다.");
     }
 
-    public static void printStatus(double blackScore, double whiteScore) {
-        System.out.println(Color.BLACK + "의 점수는 " + blackScore + "입니다.");
-        System.out.println(Color.WHITE + "의 점수는 " + whiteScore + "입니다.");
+    public static void printStatus(GameScoreDto gameScoreDto) {
+        System.out.println(Color.BLACK + "의 점수는 " + gameScoreDto.blackScore() + "입니다.");
+        System.out.println(Color.WHITE + "의 점수는 " + gameScoreDto.whiteScore() + "입니다.");
     }
 
     public static void printEndGuide() {
