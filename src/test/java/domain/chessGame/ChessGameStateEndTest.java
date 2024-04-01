@@ -12,7 +12,7 @@ class ChessGameStateEndTest {
     @DisplayName("체스 게임이 종료된 상태에서 시작하려 할 경우 에러를 발생한다.")
     @Test
     void startAtChessGameEnd() {
-        ChessGameStateEnd chessGameEnd = new ChessGameStateEnd();
+        ChessGameStateEnd chessGameEnd = new ChessGameStateEnd(0L);
 
         Assertions.assertThatThrownBy(() -> chessGameEnd.start(new ChessGameService(), new PieceService()))
                 .isInstanceOf(UnsupportedOperationException.class)
@@ -22,7 +22,7 @@ class ChessGameStateEndTest {
     @DisplayName("체스 게임이 종료된 상태에서 보드를 가져오려고 할 경우 에러를 발생한다.")
     @Test
     void getBoardAtChessGameEnd() {
-        ChessGameStateEnd chessGameEnd = new ChessGameStateEnd();
+        ChessGameStateEnd chessGameEnd = new ChessGameStateEnd(0L);
 
         Assertions.assertThatThrownBy(chessGameEnd::getBoard)
                 .isInstanceOf(UnsupportedOperationException.class)

@@ -1,7 +1,6 @@
 package state.chessGame;
 
 import domain.coordinate.Coordinate;
-import domain.piece.Color;
 import domain.piece.base.ChessPiece;
 import java.util.Map;
 import service.ChessGameService;
@@ -41,10 +40,5 @@ public class ChessGameStateEnd extends NotRunningGameState {
     @Override
     public void show() {
         OutputView.printEndGuide();
-    }
-
-    @Override
-    public Color getTurn() {
-        throw new UnsupportedOperationException("이미 종료한 상태의 게임으로 턴을 불러올 수 없습니다.");
     }
 }
