@@ -47,9 +47,4 @@ public class ChessGameStateKingCaught extends NotRunningGameState {
     public void show() {
         OutputView.printResult(currentTurn);
     }
-
-    @Override
-    public Color getTurn() {
-        return currentTurn;
-    }
 }

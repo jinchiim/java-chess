@@ -1,7 +1,6 @@
 package state.chessGame;
 
 import domain.coordinate.Coordinate;
-import domain.piece.Color;
 import domain.piece.base.ChessPiece;
 import java.sql.SQLException;
 import java.util.Map;
@@ -41,10 +40,5 @@ public class InitialChessGameState extends NotRunningGameState {
     @Override
     public Long getGameId() {
         throw new UnsupportedOperationException("초기의 상태에서는 게임의 id를 불러올 수 없습니다.");
-    }
-
-    @Override
-    public Color getTurn() {
-        throw new UnsupportedOperationException("초기의 상태에서는 게임의 턴을 불러올 수 없습니다.");
     }
 }

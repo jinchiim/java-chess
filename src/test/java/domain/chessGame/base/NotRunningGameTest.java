@@ -1,7 +1,6 @@
 package domain.chessGame.base;
 
 import domain.coordinate.Coordinate;
-import domain.piece.Color;
 import domain.piece.base.ChessPiece;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
@@ -22,6 +21,11 @@ class NotRunningGameTest {
         }
 
         @Override
+        public boolean isKingCaught() {
+            return false;
+        }
+
+        @Override
         public Map<Coordinate, ChessPiece> getBoard() {
             return null;
         }
@@ -33,11 +37,6 @@ class NotRunningGameTest {
 
         @Override
         public void show() {
-        }
-
-        @Override
-        public Color getTurn() {
-            return null;
         }
     }
 

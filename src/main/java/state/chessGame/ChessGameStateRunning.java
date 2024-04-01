@@ -78,9 +78,4 @@ public class ChessGameStateRunning implements ChessGameState {
     public void show() {
         OutputView.printBoard(chessBoard.getBoard());
     }
-
-    @Override
-    public Color getTurn() {
-        return currentTurn;
-    }
 }
