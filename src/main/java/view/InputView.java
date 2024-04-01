@@ -5,17 +5,16 @@ import java.util.Scanner;
 
 public class InputView {
 
-    private final Scanner scanner;
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public InputView(Scanner scanner) {
-        this.scanner = scanner;
+    private InputView() {
     }
 
-    public List<String> receiveCommands() {
+    public static List<String> receiveCommands() {
         return splitCommand(scanner.nextLine());
     }
 
-    private List<String> splitCommand(String input) {
+    private static List<String> splitCommand(String input) {
         return List.of(input.split(" "));
     }
 }
