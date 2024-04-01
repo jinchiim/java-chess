@@ -28,11 +28,13 @@ public class ChessGameController {
             List<String> inputCommand = InputView.receiveCommands();
             Command command = Commands.findCommand(inputCommand.get(0));
 
-            chessGameState = command.execute(chessGameState, inputCommand, pieceService);
+            chessGameState = command.execute(chessGameService, inputCommand, pieceService, chessGameState);
             chessGameState.show();
         } while (chessGameState.isPlaying());
 
-        pieceService.deletePieces(chessGameState.getGameId());
-        chessGameService.deleteChessGame(chessGameState.getGameId());
+        if (chessGameState.isKingCaught()) {
+            pieceService.deletePieces(chessGameState);
+            chessGameService.deleteChessGame(chessGameState);
+        }
     }
 }
