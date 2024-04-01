@@ -15,8 +15,4 @@ public enum Color {
         }
         return Color.BLACK;
     }
-
-    public Color getBeforeColor() {
-        return changeTurn();
-    }
 }
