@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-public class PieceDao implements ChessPieceDao {
+public class PieceDao implements PieceRepository {
 
     @Override
-    public void create(Long gameId, List<Piece> pieces) throws SQLException {
+    public void saveAll(Long gameId, List<Piece> pieces) throws SQLException {
         String query = "INSERT INTO piece " +
                 "(id, game_id, color, piece_type, `row`, `column`) " +
                 "VALUES(DEFAULT, ?, ?, ?, ?, ?)";
@@ -60,7 +60,7 @@ public class PieceDao implements ChessPieceDao {
     }
 
     @Override
-    public void updateByRowAndColumn(Long id, String row, String column) throws SQLException {
+    public void updatePieceByRowAndColumn(Long id, String row, String column) throws SQLException {
         String query = "UPDATE piece " +
                 "SET `row` = ?, `column` = ? " +
                 "WHERE id = ?";
@@ -83,7 +83,7 @@ public class PieceDao implements ChessPieceDao {
     }
 
     @Override
-    public void updateByRowAndColumnAndPieceType(Long id, String row, String column) throws SQLException {
+    public void updatePieceByRowAndColumnAndPieceType(Long id, String row, String column) throws SQLException {
         String query = "UPDATE piece " +
                 "SET `row` = ?, `column` = ?, piece_type = 'BLANK', color = 'NONE'" +
                 "WHERE id = ?";

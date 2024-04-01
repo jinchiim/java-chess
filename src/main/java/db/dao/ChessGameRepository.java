@@ -3,9 +3,9 @@ package db.dao;
 import db.entity.ChessGame;
 import java.sql.SQLException;
 
-public interface ChessRepository {
+public interface ChessGameRepository {
 
-    Long create(ChessGame chessGame) throws SQLException;
+    Long save(ChessGame chessGame) throws SQLException;
 
     void delete(Long gameId) throws SQLException;
 }

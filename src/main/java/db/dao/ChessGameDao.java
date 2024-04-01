@@ -8,10 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ChessGameDao implements ChessRepository {
+public class ChessGameDao implements ChessGameRepository {
 
     @Override
-    public Long create(ChessGame chessGame) throws SQLException {
+    public Long save(ChessGame chessGame) throws SQLException {
         String query = "INSERT INTO chess_game " +
                 "(id, is_running) " +
                 "VALUES(DEFAULT, ?)";

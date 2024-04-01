@@ -1,15 +1,16 @@
 package service;
 
+import db.dao.ChessGameDao;
+import db.dao.ChessGameRepository;
 import db.entity.ChessGame;
 import java.sql.SQLException;
-import repository.ChessGameRepository;
 
 public class ChessGameService {
 
     private final ChessGameRepository chessGameRepository;
 
     public ChessGameService() {
-        this.chessGameRepository = new ChessGameRepository();
+        this.chessGameRepository = new ChessGameDao();
     }
 
     public Long addChessGame() throws SQLException {
