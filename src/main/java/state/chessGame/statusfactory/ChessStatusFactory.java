@@ -1,7 +1,10 @@
 package state.chessGame.statusfactory;
 
 import domain.chessboard.ChessBoard;
+import domain.coordinate.Coordinate;
 import domain.piece.Color;
+import domain.piece.base.ChessPiece;
+import java.util.Map;
 import state.chessGame.ChessGameStateEnd;
 import state.chessGame.ChessGameStateKingCaught;
 import state.chessGame.ChessGameStateRunning;
@@ -14,8 +17,8 @@ public class ChessStatusFactory {
         return new InitialChessGameState();
     }
 
-    public static ChessGameState makeRunningChessGame(Long gameId) {
-        return new ChessGameStateRunning(new ChessBoard(), gameId);
+    public static ChessGameState makeRunningChessGame(Long gameId, Map<Coordinate, ChessPiece> board) {
+        return new ChessGameStateRunning(new ChessBoard(board), gameId);
     }
 
     public static ChessGameState makeEndChessGame(Long gameId) {
