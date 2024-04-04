@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PieceDao {
@@ -19,14 +20,15 @@ public class PieceDao {
         Connection connection = DatabaseConnection.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-
             statement.setLong(1, gameId);
-            addInitPiece(statement, pieces);
 
+            addInitPiece(statement, pieces);
             statement.executeBatch();
+
             connection.commit();
         } catch (SQLException e) {
             connection.rollback();
+            connection.close();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
@@ -40,7 +42,6 @@ public class PieceDao {
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-
             statement.setLong(1, gameId);
             statement.setString(2, row);
             statement.setString(3, column);
@@ -51,9 +52,7 @@ public class PieceDao {
                 return resultSet.getLong("id");
             }
             connection.commit();
-            connection.close();
         } catch (SQLException e) {
-            connection.rollback();
             connection.close();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
@@ -73,10 +72,9 @@ public class PieceDao {
             statement.setString(1, row);
             statement.setString(2, column);
             statement.setLong(3, id);
-
             statement.executeUpdate();
+
             connection.commit();
-            connection.close();
         } catch (SQLException e) {
             connection.rollback();
             connection.close();
@@ -97,10 +95,9 @@ public class PieceDao {
             statement.setString(1, row);
             statement.setString(2, column);
             statement.setLong(3, id);
-
             statement.executeUpdate();
+
             connection.commit();
-            connection.close();
         } catch (SQLException e) {
             connection.rollback();
             connection.close();
@@ -118,10 +115,9 @@ public class PieceDao {
             connection.setAutoCommit(false);
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setLong(1, gameId);
-
             statement.executeUpdate();
+
             connection.commit();
-            connection.close();
         } catch (SQLException e) {
             connection.rollback();
             connection.close();
@@ -139,6 +135,40 @@ public class PieceDao {
             statement.setString(5, piece.getColumn());
 
             statement.addBatch();
+        }
+    }
+
+    public List<Piece> findAllByGameId(Long gameId) throws SQLException {
+        String query = "SELECT * " +
+                "FROM piece " +
+                "WHERE game_id = ? " +
+                "ORDER BY `row` DESC, `column` ASC";
+
+        Connection connection = DatabaseConnection.getConnection();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1, gameId);
+
+            List<Piece> pieces = new ArrayList<>();
+            try (ResultSet result = statement.executeQuery()) {
+                addPiece(gameId, result, pieces);
+                return pieces;
+            }
+        } catch (SQLException e) {
+            connection.close();
+            throw new RuntimeException("체스 판을 불러오는데 실패했습니다." + e.getMessage());
+        }
+    }
+
+    private static void addPiece(Long gameId, ResultSet result, List<Piece> pieces) throws SQLException {
+        while (result.next()) {
+            String color = result.getString("color");
+            String pieceType = result.getString("piece_type");
+            String row = result.getString("row");
+            String column = result.getString("column");
+
+            pieces.add(Piece.createPiece(gameId, pieceType, color, row, column));
         }
     }
 }
