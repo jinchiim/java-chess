@@ -1,6 +1,7 @@
 package domain.chessGame;
 
 import domain.chessboard.ChessBoard;
+import domain.chessboard.ChessBoardInitializer;
 import domain.piece.Color;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +15,8 @@ class ChessGameStateKingCaughtTest {
     @DisplayName("킹이 잡혀 게임이 끝난 상태에서 게임을 시작하려 할 경우 에러를 발생한다.")
     @Test
     void startChessGameAtKingCaught() {
-        ChessGameStateKingCaught chessGameKingCaught = new ChessGameStateKingCaught(new ChessBoard(), Color.WHITE, 0L);
+        ChessGameStateKingCaught chessGameKingCaught = new ChessGameStateKingCaught(new ChessBoard(
+                ChessBoardInitializer.createInitialBoard()), Color.WHITE, 0L);
 
         Assertions.assertThatThrownBy(() -> chessGameKingCaught.start(new ChessGameService(), new PieceService()))
                 .isInstanceOf(UnsupportedOperationException.class)

@@ -13,8 +13,8 @@ public class ChessBoard {
 
     private final Map<Coordinate, ChessPiece> board;
 
-    public ChessBoard() {
-        board = ChessBoardInitializer.createInitialBoard();
+    public ChessBoard(Map<Coordinate, ChessPiece> chessBoard) {
+        board = chessBoard;
     }
 
     public void playTurn(Coordinate start, Coordinate destination) {
