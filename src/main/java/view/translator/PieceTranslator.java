@@ -1,5 +1,6 @@
 package view.translator;
 
+import db.entity.Piece;
 import domain.piece.Bishop;
 import domain.piece.Blank;
 import domain.piece.Color;
@@ -46,6 +47,13 @@ public enum PieceTranslator {
     public static PieceTranslator from(ChessPiece chessPiece) {
         return Arrays.stream(values())
                 .filter(piece -> piece.classType == chessPiece.getClass())
+                .findAny()
+                .orElseThrow();
+    }
+
+    public static PieceTranslator from(Piece piece) {
+        return Arrays.stream(values())
+                .filter(singlePiece -> String.valueOf(singlePiece).equals(piece.getPieceType()))
                 .findAny()
                 .orElseThrow();
     }
