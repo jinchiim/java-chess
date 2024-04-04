@@ -17,4 +17,9 @@ public class InputView {
     private static List<String> splitCommand(String input) {
         return List.of(input.split(" "));
     }
+
+    public static String receiveRoomName() {
+        System.out.print("설정하고 싶은 방 이름을 작성해주세요. (최대 20 글자) : ");
+        return scanner.nextLine();
+    }
 }
