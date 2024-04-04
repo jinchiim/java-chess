@@ -9,14 +9,23 @@ import state.chessGame.base.ChessGameState;
 
 public class Start implements Command {
 
-    public Start() {
+    private final ChessGameService chessGameService;
+    private final PieceService pieceService;
+
+    public Start(ChessGameService chessGameService, PieceService pieceService) {
+        this.chessGameService = chessGameService;
+        this.pieceService = pieceService;
     }
 
     @Override
-    public ChessGameState execute(ChessGameService chessGameService, List<String> inputCommand,
-                                  PieceService pieceService, ChessGameState chessGameState) throws SQLException {
+    public ChessGameState execute(ChessGameState chessGameState) throws SQLException {
         chessGameState = chessGameService.addChessGame();
         pieceService.addPieces(chessGameState.getGameId(), chessGameState.getBoard());
         return chessGameState;
+    }
+
+    @Override
+    public ChessGameState execute(ChessGameState chessGameState, List<String> inputCommand) {
+        throw new IllegalArgumentException("잘못된 입력 값을 받았습니다.");
     }
 }
