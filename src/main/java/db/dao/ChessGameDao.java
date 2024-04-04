@@ -25,12 +25,15 @@ public class ChessGameDao {
 
             if (result.next()) {
                 connection.commit();
+                connection.close();
                 return result.getLong(1);
             }
             connection.rollback();
+            connection.close();
             throw new RuntimeException("해당하는 데이터가 없습니다.");
         } catch (SQLException e) {
             connection.rollback();
+            connection.close();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
@@ -48,8 +51,10 @@ public class ChessGameDao {
 
             statement.executeUpdate();
             connection.commit();
+            connection.close();
         } catch (SQLException e) {
             connection.rollback();
+            connection.close();
             throw new RuntimeException("데이터베이스 삭제에 실패했습니다." + e.getMessage());
         }
     }
@@ -68,8 +73,10 @@ public class ChessGameDao {
             statement.executeUpdate();
 
             connection.commit();
+            connection.close();
         } catch (SQLException e) {
             connection.rollback();
+            connection.close();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }

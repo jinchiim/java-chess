@@ -51,8 +51,10 @@ public class PieceDao {
                 return resultSet.getLong("id");
             }
             connection.commit();
+            connection.close();
         } catch (SQLException e) {
             connection.rollback();
+            connection.close();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
         throw new IllegalArgumentException("id를 찾지 못했습니다.");
@@ -74,8 +76,10 @@ public class PieceDao {
 
             statement.executeUpdate();
             connection.commit();
+            connection.close();
         } catch (SQLException e) {
             connection.rollback();
+            connection.close();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
@@ -96,8 +100,10 @@ public class PieceDao {
 
             statement.executeUpdate();
             connection.commit();
+            connection.close();
         } catch (SQLException e) {
             connection.rollback();
+            connection.close();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
@@ -115,8 +121,10 @@ public class PieceDao {
 
             statement.executeUpdate();
             connection.commit();
+            connection.close();
         } catch (SQLException e) {
             connection.rollback();
+            connection.close();
             throw new RuntimeException("데이터베이스 삭제에 실패했습니다." + e.getMessage());
         }
     }
