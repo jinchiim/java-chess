@@ -1,7 +1,6 @@
 package controller;
 
-import command.base.Command;
-import command.base.Commands;
+import command.commandExecutor.CommandExecutor;
 import java.sql.SQLException;
 import java.util.List;
 import service.ChessGameService;
@@ -23,12 +22,12 @@ public class ChessGameController {
 
     public void run() throws SQLException {
         ChessGameState chessGameState = ChessStatusFactory.initChessGame();
+        CommandExecutor commandExecutor = new CommandExecutor(chessGameService, pieceService);
+
         OutputView.printGameGuide();
         do {
             List<String> inputCommand = InputView.receiveCommands();
-            Command command = Commands.findCommand(inputCommand.get(0));
-
-            chessGameState = command.execute(chessGameService, inputCommand, pieceService, chessGameState);
+            chessGameState = commandExecutor.executeCommand(inputCommand, chessGameState);
             chessGameState.show();
         } while (chessGameState.isPlaying());
 
