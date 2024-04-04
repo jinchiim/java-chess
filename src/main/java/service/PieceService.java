@@ -4,8 +4,10 @@ import db.dao.PieceDao;
 import db.entity.Piece;
 import domain.coordinate.Coordinate;
 import domain.piece.base.ChessPiece;
+import domain.piece.maker.PieceMaker;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import state.chessGame.base.ChessGameState;
@@ -79,5 +81,18 @@ public class PieceService {
 
     private List<ChessPiece> getOneRowPieces(List<ChessPiece> boardValues, int row, int rowSize) {
         return boardValues.subList(row, Math.min(row + rowSize, boardValues.size()));
+    }
+
+    public Map<Coordinate, ChessPiece> loadBoard(Long gameId) throws SQLException {
+        Map<Coordinate, ChessPiece> board = new LinkedHashMap<>();
+
+        List<Piece> pieces = pieceDao.findAllByGameId(gameId);
+        for (Piece piece : pieces) {
+            String coordinate = ColumnSymbol.identifierFrom(piece.getColumn());
+            ChessPiece foundPiece = PieceMaker.mapPiece(piece);
+
+            board.put(Coordinate.from(coordinate + piece.getRow()), foundPiece);
+        }
+        return board;
     }
 }
