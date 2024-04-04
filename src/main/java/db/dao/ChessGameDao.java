@@ -8,9 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ChessGameDao implements ChessGameRepository {
+public class ChessGameDao {
 
-    @Override
     public Long save(ChessGame chessGame) throws SQLException {
         String query = "INSERT INTO chess_game " +
                 "(id, is_running) " +
@@ -36,7 +35,6 @@ public class ChessGameDao implements ChessGameRepository {
         }
     }
 
-    @Override
     public void delete(Long gameId) throws SQLException {
         String query = "DELETE FROM chess_game " +
                 "WHERE id = ?";
@@ -56,7 +54,6 @@ public class ChessGameDao implements ChessGameRepository {
         }
     }
 
-    @Override
     public void updateChessGameById(Long gameId) throws SQLException {
         String query = "UPDATE chess_game " +
                 "SET is_running = false " +

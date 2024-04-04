@@ -58,7 +58,6 @@ public class PieceDao {
         throw new IllegalArgumentException("id를 찾지 못했습니다.");
     }
 
-    @Override
     public void updatePieceByRowAndColumn(Long id, String row, String column) throws SQLException {
         String query = "UPDATE piece " +
                 "SET `row` = ?, `column` = ? " +

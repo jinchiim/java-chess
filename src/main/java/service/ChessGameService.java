@@ -1,7 +1,6 @@
 package service;
 
 import db.dao.ChessGameDao;
-import db.dao.ChessGameRepository;
 import db.entity.ChessGame;
 import domain.chessboard.ChessBoardScoreCalculator;
 import domain.coordinate.Coordinate;
@@ -15,21 +14,21 @@ import state.chessGame.statusfactory.ChessStatusFactory;
 
 public class ChessGameService {
 
-    private final ChessGameRepository chessGameRepository;
+    private final ChessGameDao chessGameDao;
 
     public ChessGameService() {
-        this.chessGameRepository = new ChessGameDao();
+        this.chessGameDao = new ChessGameDao();
     }
 
     public ChessGameState addChessGame() throws SQLException {
         ChessGame chessGame = ChessGame.create();
-        Long id = chessGameRepository.save(chessGame);
+        Long id = chessGameDao.save(chessGame);
 
         return ChessStatusFactory.makeRunningChessGame(id);
     }
 
     public void deleteChessGame(ChessGameState chessGameState) throws SQLException {
-        chessGameRepository.delete(chessGameState.getGameId());
+        chessGameDao.delete(chessGameState.getGameId());
     }
 
     public GameScoreDto calculateScore(ChessGameState chessGameState) {
@@ -42,7 +41,7 @@ public class ChessGameService {
     }
 
     public ChessGameState stopChessGame(ChessGameState chessGameState) throws SQLException {
-        chessGameRepository.updateChessGameById(chessGameState.getGameId());
+        chessGameDao.updateChessGameById(chessGameState.getGameId());
         return chessGameState.end();
     }
 }
