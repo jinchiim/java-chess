@@ -1,7 +1,6 @@
 package service;
 
 import db.dao.PieceDao;
-import db.dao.PieceRepository;
 import db.entity.Piece;
 import domain.coordinate.Coordinate;
 import domain.piece.base.ChessPiece;
@@ -15,15 +14,15 @@ import view.translator.PieceTranslator;
 
 public class PieceService {
 
-    private final PieceRepository pieceRepository;
+    private final PieceDao pieceDao;
 
     public PieceService() {
-        this.pieceRepository = new PieceDao();
+        this.pieceDao = new PieceDao();
     }
 
     public void addPieces(Long gameId, Map<Coordinate, ChessPiece> board) throws SQLException {
         List<Piece> pieces = addInitPiece(board, gameId);
-        pieceRepository.saveAll(gameId, pieces);
+        pieceDao.saveAll(gameId, pieces);
     }
 
     public ChessGameState updatePiece(List<String> inputCommand, ChessGameState chessGameState) throws SQLException {
@@ -39,20 +38,20 @@ public class PieceService {
     }
 
     private void updateSinglePiece(Long gameId, Coordinate start, Coordinate destination) throws SQLException {
-        Long startPieceId = pieceRepository.findIdByRowAndColumnAndGameId(gameId, start.getRowPosition(),
+        Long startPieceId = pieceDao.findIdByRowAndColumnAndGameId(gameId, start.getRowPosition(),
                 start.getColumnPosition());
 
-        Long destinationPieceId = pieceRepository.findIdByRowAndColumnAndGameId(gameId,
+        Long destinationPieceId = pieceDao.findIdByRowAndColumnAndGameId(gameId,
                 destination.getRowPosition(), destination.getColumnPosition());
 
-        pieceRepository.updatePieceByRowAndColumn(startPieceId, destination.getRowPosition(),
+        pieceDao.updatePieceByRowAndColumn(startPieceId, destination.getRowPosition(),
                 destination.getColumnPosition());
-        pieceRepository.updatePieceByRowAndColumnAndPieceType(destinationPieceId, start.getRowPosition(),
+        pieceDao.updatePieceByRowAndColumnAndPieceType(destinationPieceId, start.getRowPosition(),
                 start.getColumnPosition());
     }
 
     public void deletePieces(ChessGameState chessGameState) throws SQLException {
-        pieceRepository.delete(chessGameState.getGameId());
+        pieceDao.delete(chessGameState.getGameId());
     }
 
     private List<Piece> addInitPiece(Map<Coordinate, ChessPiece> board, Long gameId) {

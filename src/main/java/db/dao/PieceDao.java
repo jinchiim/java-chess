@@ -9,9 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-public class PieceDao implements PieceRepository {
+public class PieceDao {
 
-    @Override
     public void saveAll(Long gameId, List<Piece> pieces) throws SQLException {
         String query = "INSERT INTO piece " +
                 "(id, game_id, color, piece_type, `row`, `column`) " +
@@ -32,7 +31,6 @@ public class PieceDao implements PieceRepository {
         }
     }
 
-    @Override
     public Long findIdByRowAndColumnAndGameId(Long gameId, String row, String column)
             throws SQLException {
         String query = "SELECT * FROM piece " +
@@ -83,7 +81,6 @@ public class PieceDao implements PieceRepository {
         }
     }
 
-    @Override
     public void updatePieceByRowAndColumnAndPieceType(Long id, String row, String column) throws SQLException {
         String query = "UPDATE piece " +
                 "SET `row` = ?, `column` = ?, piece_type = 'BLANK', color = 'NONE'" +
@@ -106,7 +103,6 @@ public class PieceDao implements PieceRepository {
         }
     }
 
-    @Override
     public void delete(Long gameId) throws SQLException {
         String query = "DELETE FROM piece " +
                 "WHERE game_id = ?";
