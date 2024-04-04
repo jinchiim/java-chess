@@ -1,6 +1,7 @@
 package command.commandExecutor;
 
 import command.End;
+import command.Load;
 import command.Move;
 import command.Start;
 import command.Status;
@@ -24,9 +25,10 @@ public class CommandExecutor {
 
     private void initCommands(ChessGameService chessGameService, PieceService pieceService) {
         commandExecutor.put("start", new Start(chessGameService, pieceService));
+        commandExecutor.put("load", new Load(chessGameService, pieceService));
         commandExecutor.put("move", new Move(pieceService));
         commandExecutor.put("status", new Status(chessGameService));
-        commandExecutor.put("end", new End(chessGameService));
+        commandExecutor.put("end", new End());
     }
 
     public ChessGameState executeCommand(List<String> inputCommand, ChessGameState chessGameState) throws SQLException {
