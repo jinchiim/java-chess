@@ -17,8 +17,8 @@ public class ChessStatusFactory {
         return new InitialChessGameState();
     }
 
-    public static ChessGameState makeRunningChessGame(Long gameId, Map<Coordinate, ChessPiece> board) {
-        return new ChessGameStateRunning(new ChessBoard(board), gameId);
+    public static ChessGameState makeRunningChessGame(Long gameId, Map<Coordinate, ChessPiece> board, String color) {
+        return new ChessGameStateRunning(new ChessBoard(board), gameId, color);
     }
 
     public static ChessGameState makeEndChessGame(Long gameId) {

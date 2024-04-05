@@ -5,8 +5,6 @@ import domain.coordinate.Coordinate;
 import domain.piece.Color;
 import domain.piece.base.ChessPiece;
 import java.util.Map;
-import service.ChessGameService;
-import service.PieceService;
 import state.chessGame.base.ChessGameState;
 import state.chessGame.statusfactory.ChessStatusFactory;
 import view.OutputView;
@@ -18,15 +16,10 @@ public class ChessGameStateRunning implements ChessGameState {
 
     private Color currentTurn;
 
-    public ChessGameStateRunning(ChessBoard chessBoard, Long gameId) {
+    public ChessGameStateRunning(ChessBoard chessBoard, Long gameId, String color) {
         this.chessBoard = chessBoard;
         this.gameId = gameId;
-        this.currentTurn = Color.WHITE;
-    }
-
-    @Override
-    public ChessGameState start(ChessGameService chessGameService, PieceService pieceService) {
-        throw new UnsupportedOperationException("이미 시작된 상태입니다.");
+        this.currentTurn = Color.valueOf(color);
     }
 
     @Override
@@ -72,6 +65,11 @@ public class ChessGameStateRunning implements ChessGameState {
     @Override
     public Long getGameId() {
         return gameId;
+    }
+
+    @Override
+    public Color getTurn() {
+        return currentTurn;
     }
 
     @Override

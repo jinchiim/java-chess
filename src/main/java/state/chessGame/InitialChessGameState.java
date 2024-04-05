@@ -2,24 +2,12 @@ package state.chessGame;
 
 import domain.coordinate.Coordinate;
 import domain.piece.base.ChessPiece;
-import java.sql.SQLException;
 import java.util.Map;
-import service.ChessGameService;
-import service.PieceService;
-import state.chessGame.base.ChessGameState;
 import state.chessGame.base.NotRunningGameState;
 
 public class InitialChessGameState extends NotRunningGameState {
 
     public InitialChessGameState() {
-    }
-
-    @Override
-    public ChessGameState start(ChessGameService chessGameService, PieceService pieceService) throws SQLException {
-        ChessGameState chessGameState = chessGameService.addChessGame();
-        pieceService.addPieces(chessGameState.getGameId(), chessGameState.getBoard());
-
-        return chessGameState;
     }
 
     @Override

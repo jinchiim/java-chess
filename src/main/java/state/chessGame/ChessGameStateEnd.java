@@ -3,9 +3,6 @@ package state.chessGame;
 import domain.coordinate.Coordinate;
 import domain.piece.base.ChessPiece;
 import java.util.Map;
-import service.ChessGameService;
-import service.PieceService;
-import state.chessGame.base.ChessGameState;
 import state.chessGame.base.NotRunningGameState;
 import view.OutputView;
 
@@ -15,11 +12,6 @@ public class ChessGameStateEnd extends NotRunningGameState {
 
     public ChessGameStateEnd(Long gameId) {
         this.gameId = gameId;
-    }
-
-    @Override
-    public ChessGameState start(ChessGameService chessGameService, PieceService pieceService) {
-        throw new UnsupportedOperationException("게임이 이미 종료되었습니다.");
     }
 
     @Override

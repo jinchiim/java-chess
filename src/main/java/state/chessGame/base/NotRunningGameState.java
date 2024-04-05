@@ -1,6 +1,7 @@
 package state.chessGame.base;
 
 import domain.coordinate.Coordinate;
+import domain.piece.Color;
 
 public abstract class NotRunningGameState implements ChessGameState {
 
@@ -17,5 +18,10 @@ public abstract class NotRunningGameState implements ChessGameState {
     @Override
     public boolean isPlaying() {
         return false;
+    }
+
+    @Override
+    public Color getTurn() {
+        throw new UnsupportedOperationException("존재하는 턴이 없습니다.");
     }
 }
