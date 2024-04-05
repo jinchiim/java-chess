@@ -3,15 +3,18 @@ package command;
 import command.base.Command;
 import java.sql.SQLException;
 import java.util.List;
+import service.ChessGameService;
 import service.PieceService;
 import state.chessGame.base.ChessGameState;
 
 public class Move implements Command {
 
     private final PieceService pieceService;
+    private final ChessGameService chessGameService;
 
-    public Move(PieceService pieceService) {
+    public Move(ChessGameService chessGameService, PieceService pieceService) {
         this.pieceService = pieceService;
+        this.chessGameService = chessGameService;
     }
 
     @Override
@@ -21,6 +24,8 @@ public class Move implements Command {
 
     @Override
     public ChessGameState execute(ChessGameState chessGameState, List<String> inputCommand) throws SQLException {
-        return pieceService.updatePiece(inputCommand, chessGameState);
+        chessGameState = pieceService.updatePiece(inputCommand, chessGameState);
+        chessGameService.switchTurn(chessGameState);
+        return chessGameState;
     }
 }

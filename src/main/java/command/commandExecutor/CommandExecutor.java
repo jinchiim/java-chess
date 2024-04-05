@@ -26,7 +26,7 @@ public class CommandExecutor {
     private void initCommands(ChessGameService chessGameService, PieceService pieceService) {
         commandExecutor.put("start", new Start(chessGameService, pieceService));
         commandExecutor.put("load", new Load(chessGameService, pieceService));
-        commandExecutor.put("move", new Move(pieceService));
+        commandExecutor.put("move", new Move(chessGameService, pieceService));
         commandExecutor.put("status", new Status(chessGameService));
         commandExecutor.put("end", new End());
     }
