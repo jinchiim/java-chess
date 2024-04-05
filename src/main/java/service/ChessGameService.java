@@ -1,7 +1,9 @@
 package service;
 
+import db.booleanTranslator.BooleanTranslator;
 import db.dao.ChessGameDao;
 import db.entity.ChessGame;
+import db.entity.dto.ChessGameDto;
 import domain.chessboard.ChessBoardInitializer;
 import domain.chessboard.ChessBoardScoreCalculator;
 import domain.coordinate.Coordinate;
@@ -25,14 +27,17 @@ public class ChessGameService {
     public ChessGameState addChessGame(String roomName) throws SQLException {
         GameRoom gameRoom = new GameRoom(roomName);
 
-        ChessGame chessGame = ChessGame.create(gameRoom);
+        ChessGame chessGame = ChessGame.create(gameRoom, String.valueOf(Color.WHITE));
         Long id = chessGameDao.save(chessGame);
 
-        return ChessStatusFactory.makeRunningChessGame(id, ChessBoardInitializer.createInitialBoard());
+        return ChessStatusFactory.makeRunningChessGame(id, ChessBoardInitializer.createInitialBoard(),
+                chessGame.getTurn());
     }
 
-    public Long loadChessGame(String roomName) throws SQLException {
-        return chessGameDao.findChessGameByName(roomName);
+    public ChessGameDto loadChessGame(String roomName) throws SQLException {
+        ChessGameDto chessGameDto = chessGameDao.findChessGameByName(roomName);
+        validateNotEndGame(chessGameDto.isRunning());
+        return chessGameDto;
     }
 
     public GameScoreDto calculateScore(ChessGameState chessGameState) {
@@ -46,5 +51,15 @@ public class ChessGameService {
 
     public void stopChessGame(ChessGameState chessGameState) throws SQLException {
         chessGameDao.updateChessGameById(chessGameState.getGameId());
+    }
+
+    private static void validateNotEndGame(int isRunning) throws SQLException {
+        if (isRunning == BooleanTranslator.translate(false)) {
+            throw new IllegalArgumentException("이미 종료된 게임입니다.");
+        }
+    }
+
+    public void switchTurn(ChessGameState chessGameState) throws SQLException {
+        chessGameDao.updateChessGameTurnById(chessGameState.getGameId(), chessGameState.getTurn());
     }
 }

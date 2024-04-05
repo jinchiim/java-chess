@@ -1,8 +1,9 @@
 package db.dao;
 
-import db.booleanTranslator.BooleanTranslator;
 import db.connection.DatabaseConnection;
 import db.entity.ChessGame;
+import db.entity.dto.ChessGameDto;
+import domain.piece.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,14 +14,15 @@ public class ChessGameDao {
 
     public Long save(ChessGame chessGame) throws SQLException {
         String query = "INSERT INTO chess_game " +
-                "(id, is_running, room_name) " +
-                "VALUES(DEFAULT, true, ?)";
+                "(id, is_running, room_name, turn) " +
+                "VALUES(DEFAULT, true, ?, ?)";
         Connection connection = DatabaseConnection.getConnection();
 
         try {
             connection.setAutoCommit(false);
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, chessGame.getRoomName());
+            statement.setString(2, chessGame.getTurn());
             statement.executeUpdate();
 
             ResultSet result = statement.getGeneratedKeys();
@@ -79,7 +81,7 @@ public class ChessGameDao {
         }
     }
 
-    public Long findChessGameByName(String roomName) throws SQLException {
+    public ChessGameDto findChessGameByName(String roomName) throws SQLException {
         String query = "SELECT * " +
                 "FROM chess_game " +
                 "WHERE room_name = ?";
@@ -94,8 +96,12 @@ public class ChessGameDao {
 
             if (result.next()) {
                 connection.commit();
-                validateNotEndGame(result);
-                return result.getLong(1);
+
+                Long id = result.getLong("id");
+                String turn = result.getString("turn");
+                int isRunning = result.getInt("is_running");
+
+                return new ChessGameDto(id, turn, isRunning);
             }
             connection.close();
 
@@ -107,9 +113,27 @@ public class ChessGameDao {
         }
     }
 
-    private static void validateNotEndGame(ResultSet result) throws SQLException {
-        if (result.getInt(3) == BooleanTranslator.translate(false)) {
-            throw new IllegalArgumentException("이미 종료된 게임입니다.");
+
+    public void updateChessGameTurnById(Long gameId, Color turn) throws SQLException {
+        String query = "UPDATE chess_game " +
+                "SET turn = ? " +
+                "WHERE id = ?";
+
+        Connection connection = DatabaseConnection.getConnection();
+
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, String.valueOf(turn));
+            statement.setLong(2, gameId);
+            statement.executeUpdate();
+
+            connection.commit();
+
+        } catch (SQLException e) {
+            connection.rollback();
+            connection.close();
+            throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
 }
