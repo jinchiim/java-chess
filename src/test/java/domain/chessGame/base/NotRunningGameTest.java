@@ -6,19 +6,11 @@ import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import service.ChessGameService;
-import service.PieceService;
-import state.chessGame.base.ChessGameState;
 import state.chessGame.base.NotRunningGameState;
 
 class NotRunningGameTest {
 
     private static class NotRunningTestImpl extends NotRunningGameState {
-
-        @Override
-        public ChessGameState start(ChessGameService chessGameService, PieceService pieceService) {
-            return null;
-        }
 
         @Override
         public boolean isKingCaught() {

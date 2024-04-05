@@ -6,29 +6,16 @@ import domain.coordinate.Coordinate;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import service.ChessGameService;
-import service.PieceService;
 import state.chessGame.ChessGameStateRunning;
 import state.chessGame.base.ChessGameState;
 
 class ChessGameStateRunningTest {
 
-    @DisplayName("체스 게임이 시작된 상태에서 시작하려 할 경우 에러를 발생시킨다.")
-    @Test
-    void startChessGameAtStart() {
-        ChessGameStateRunning chessGameRunning = new ChessGameStateRunning(
-                new ChessBoard(ChessBoardInitializer.createInitialBoard()), 0L);
-
-        Assertions.assertThatThrownBy(() -> chessGameRunning.start(new ChessGameService(), new PieceService()))
-                .isInstanceOf(UnsupportedOperationException.class)
-                .hasMessage("이미 시작된 상태입니다.");
-    }
-
     @DisplayName("움직임을 시작한 후 King을 잡지 못한 경우 상태는 지속된다.")
     @Test
     void moveChessGameAtRunning() {
         ChessGameStateRunning chessGameRunning = new ChessGameStateRunning(
-                new ChessBoard(ChessBoardInitializer.createInitialBoard()), 0L);
+                new ChessBoard(ChessBoardInitializer.createInitialBoard()), 0L, "WHITE");
 
         Coordinate start = Coordinate.from("a2");
         Coordinate destination = Coordinate.from("a4");
@@ -42,7 +29,7 @@ class ChessGameStateRunningTest {
     @Test
     void endChessGameAtRunning() {
         ChessGameStateRunning chessGameRunning = new ChessGameStateRunning(
-                new ChessBoard(ChessBoardInitializer.createInitialBoard()), 0L);
+                new ChessBoard(ChessBoardInitializer.createInitialBoard()), 0L, "WHITE");
 
         ChessGameState chessGameState = chessGameRunning.end();
 
@@ -53,7 +40,7 @@ class ChessGameStateRunningTest {
     @Test
     void moveOtherColorPieceAtRunning() {
         ChessGameStateRunning chessGameRunning = new ChessGameStateRunning(
-                new ChessBoard(ChessBoardInitializer.createInitialBoard()), 0L);
+                new ChessBoard(ChessBoardInitializer.createInitialBoard()), 0L, "WHITE");
 
         Coordinate start = Coordinate.from("a7");
         Coordinate destination = Coordinate.from("a5");
@@ -67,7 +54,7 @@ class ChessGameStateRunningTest {
     @Test
     void attackSameColorPieceAtRunning() {
         ChessGameStateRunning chessGameRunning = new ChessGameStateRunning(
-                new ChessBoard(ChessBoardInitializer.createInitialBoard()), 0L);
+                new ChessBoard(ChessBoardInitializer.createInitialBoard()), 0L, "WHITE");
 
         Coordinate start = Coordinate.from("a2");
         Coordinate destination = Coordinate.from("b2");
@@ -81,7 +68,7 @@ class ChessGameStateRunningTest {
     @Test
     void attackKingAtRunning() {
         ChessGameStateRunning chessGameRunning = new ChessGameStateRunning(
-                new ChessBoard(ChessBoardInitializer.createInitialBoard()), 0L);
+                new ChessBoard(ChessBoardInitializer.createInitialBoard()), 0L, "WHITE");
 
         Coordinate start = Coordinate.from("e2");
         Coordinate destination = Coordinate.from("e3");
