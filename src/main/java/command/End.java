@@ -1,22 +1,17 @@
 package command;
 
 import command.base.Command;
-import java.sql.SQLException;
 import java.util.List;
-import service.ChessGameService;
 import state.chessGame.base.ChessGameState;
 
 public class End implements Command {
 
-    private final ChessGameService chessGameService;
-
-    public End(ChessGameService chessGameService) {
-        this.chessGameService = chessGameService;
+    public End() {
     }
 
     @Override
-    public ChessGameState execute(ChessGameState chessGameState) throws SQLException {
-        return chessGameService.stopChessGame(chessGameState);
+    public ChessGameState execute(ChessGameState chessGameState) {
+        return chessGameState.end();
     }
 
     @Override
