@@ -33,8 +33,7 @@ public class PieceDao {
         }
     }
 
-    public Long findIdByRowAndColumnAndGameId(Long gameId, String row, String column)
-            throws SQLException {
+    public Long findIdByRowAndColumnAndGameId(Long gameId, String row, String column) {
         String query = "SELECT * FROM piece " +
                 "WHERE game_id = ? AND `row` = ? AND `column` = ?";
 
@@ -47,7 +46,6 @@ public class PieceDao {
             statement.setString(3, column);
 
             ResultSet resultSet = statement.executeQuery();
-
             if (resultSet.next()) {
                 return resultSet.getLong("id");
             }

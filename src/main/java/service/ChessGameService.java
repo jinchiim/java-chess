@@ -53,7 +53,7 @@ public class ChessGameService {
         chessGameDao.updateChessGameById(chessGameState.getGameId());
     }
 
-    private static void validateNotEndGame(int isRunning) throws SQLException {
+    private static void validateNotEndGame(int isRunning) {
         if (isRunning == BooleanTranslator.translate(false)) {
             throw new IllegalArgumentException("이미 종료된 게임입니다.");
         }
