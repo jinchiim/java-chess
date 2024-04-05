@@ -25,6 +25,9 @@ public class Move implements Command {
     @Override
     public ChessGameState execute(ChessGameState chessGameState, List<String> inputCommand) throws SQLException {
         chessGameState = pieceService.updatePiece(inputCommand, chessGameState);
+        if (chessGameState.isKingCaught()) {
+            return chessGameState;
+        }
         chessGameService.switchTurn(chessGameState);
         return chessGameState;
     }
