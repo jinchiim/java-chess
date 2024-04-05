@@ -1,6 +1,7 @@
 package command;
 
 import command.base.Command;
+import db.entity.dto.ChessGameDto;
 import domain.coordinate.Coordinate;
 import domain.piece.base.ChessPiece;
 import java.sql.SQLException;
@@ -28,9 +29,9 @@ public class Load implements Command {
 
     @Override
     public ChessGameState execute(ChessGameState chessGameState, List<String> inputCommand) throws SQLException {
-        Long gameId = chessGameService.loadChessGame(inputCommand.get(1));
-        Map<Coordinate, ChessPiece> board = pieceService.loadBoard(gameId);
+        ChessGameDto chessGameDto = chessGameService.loadChessGame(inputCommand.get(1));
+        Map<Coordinate, ChessPiece> board = pieceService.loadBoard(chessGameDto.id());
 
-        return ChessStatusFactory.makeRunningChessGame(gameId, board);
+        return ChessStatusFactory.makeRunningChessGame(chessGameDto.id(), board, chessGameDto.turn());
     }
 }
