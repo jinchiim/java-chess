@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS chess_game
     id         BIGINT NOT NULL AUTO_INCREMENT,
     room_name  VARCHAR(20) UNIQUE,
     is_running BOOLEAN,
+    turn       VARCHAR(5),
     PRIMARY KEY (id)
 );
 
