@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 public class ChessBoardScoreCalculator {
 
-
     public static final double SAME_COLUMN_PAWN_SCORE = 0.5;
 
     public static double calculate(Color color, Map<Coordinate, ChessPiece> board) {
@@ -20,8 +19,28 @@ public class ChessBoardScoreCalculator {
     private static double calculateChessBoardScore(Color color, Map<Coordinate, ChessPiece> board) {
         List<ChessPiece> coloredPiece = findSameColorPiece(color, board);
 
-        return calculateTotalScore(coloredPiece) - sameColumnPawnScore(color, board);
+        return calculateTotalScoreWithOutPawn(coloredPiece) + calculatePawnScore(coloredPiece, color, board);
     }
+
+    private static double calculateTotalScoreWithOutPawn(List<ChessPiece> coloredPiece) {
+        return coloredPiece.stream()
+                .filter(piece -> !piece.isPawn())
+                .map(ChessPiece::getScore)
+                .mapToDouble(Double::doubleValue)
+                .sum();
+    }
+
+    private static double calculatePawnScore(List<ChessPiece> coloredPiece, Color color,
+                                             Map<Coordinate, ChessPiece> board) {
+        double pawnScore = coloredPiece.stream()
+                .filter(ChessPiece::isPawn)
+                .map(ChessPiece::getScore)
+                .mapToDouble(Double::doubleValue)
+                .sum();
+
+        return pawnScore - sameColumnPawnScore(color, board);
+    }
+
 
     private static double sameColumnPawnScore(Color color, Map<Coordinate, ChessPiece> board) {
         return SAME_COLUMN_PAWN_SCORE * countSameColumPawn(color, board);
@@ -32,13 +51,6 @@ public class ChessBoardScoreCalculator {
                 .stream()
                 .filter(chessPiece -> chessPiece.isSameColor(color))
                 .toList();
-    }
-
-    private static double calculateTotalScore(List<ChessPiece> coloredPiece) {
-        return coloredPiece.stream()
-                .map(ChessPiece::getScore)
-                .mapToDouble(Double::doubleValue)
-                .sum();
     }
 
     private static double countSameColumPawn(Color color, Map<Coordinate, ChessPiece> board) {
