@@ -20,8 +20,11 @@ public class ChessBoardScoreCalculator {
     private static double calculateChessBoardScore(Color color, Map<Coordinate, ChessPiece> board) {
         List<ChessPiece> coloredPiece = findSameColorPiece(color, board);
 
-        double totalScore = calculateTotalScore(coloredPiece);
-        return totalScore - SAME_COLUMN_PAWN_SCORE * countSameColumPawn(color, board);
+        return calculateTotalScore(coloredPiece) - sameColumnPawnScore(color, board);
+    }
+
+    private static double sameColumnPawnScore(Color color, Map<Coordinate, ChessPiece> board) {
+        return SAME_COLUMN_PAWN_SCORE * countSameColumPawn(color, board);
     }
 
     private static List<ChessPiece> findSameColorPiece(Color color, Map<Coordinate, ChessPiece> board) {
