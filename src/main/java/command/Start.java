@@ -6,6 +6,7 @@ import java.util.List;
 import service.ChessGameService;
 import service.PieceService;
 import state.chessGame.base.ChessGameState;
+import view.InputView;
 
 public class Start implements Command {
 
@@ -19,7 +20,8 @@ public class Start implements Command {
 
     @Override
     public ChessGameState execute(ChessGameState chessGameState) throws SQLException {
-        chessGameState = chessGameService.addChessGame();
+        String roomName = InputView.receiveRoomName();
+        chessGameState = chessGameService.addChessGame(roomName);
         pieceService.addPieces(chessGameState.getGameId(), chessGameState.getBoard());
         return chessGameState;
     }
