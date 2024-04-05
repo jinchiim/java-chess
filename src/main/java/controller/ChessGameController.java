@@ -33,7 +33,7 @@ public class ChessGameController {
 
         if (chessGameState.isKingCaught()) {
             pieceService.deletePieces(chessGameState);
-            chessGameService.deleteChessGame(chessGameState);
+            chessGameService.stopChessGame(chessGameState);
         }
     }
 }
