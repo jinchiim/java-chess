@@ -28,7 +28,7 @@ public class PieceDao {
             connection.commit();
         } catch (SQLException e) {
             connection.rollback();
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
@@ -53,7 +53,7 @@ public class PieceDao {
             }
             connection.commit();
         } catch (SQLException e) {
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
         throw new IllegalArgumentException("id를 찾지 못했습니다.");
@@ -77,7 +77,7 @@ public class PieceDao {
             connection.commit();
         } catch (SQLException e) {
             connection.rollback();
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
@@ -100,7 +100,7 @@ public class PieceDao {
             connection.commit();
         } catch (SQLException e) {
             connection.rollback();
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
@@ -120,7 +120,7 @@ public class PieceDao {
             connection.commit();
         } catch (SQLException e) {
             connection.rollback();
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("데이터베이스 삭제에 실패했습니다." + e.getMessage());
         }
     }
@@ -156,7 +156,7 @@ public class PieceDao {
                 return pieces;
             }
         } catch (SQLException e) {
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("체스 판을 불러오는데 실패했습니다." + e.getMessage());
         }
     }

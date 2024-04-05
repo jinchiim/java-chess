@@ -31,11 +31,11 @@ public class ChessGameDao {
                 connection.commit();
                 return result.getLong(1);
             }
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("해당하는 데이터가 없습니다.");
         } catch (SQLException e) {
             connection.rollback();
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
@@ -54,7 +54,7 @@ public class ChessGameDao {
             connection.commit();
         } catch (SQLException e) {
             connection.rollback();
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("데이터베이스 삭제에 실패했습니다." + e.getMessage());
         }
     }
@@ -76,7 +76,7 @@ public class ChessGameDao {
 
         } catch (SQLException e) {
             connection.rollback();
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
@@ -103,12 +103,12 @@ public class ChessGameDao {
 
                 return new ChessGameDto(id, turn, isRunning);
             }
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
 
             throw new RuntimeException("해당하는 데이터가 없습니다.");
         } catch (SQLException e) {
             connection.rollback();
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("체스 게임 불러오기에 실패했습니다." + e.getMessage());
         }
     }
@@ -128,11 +128,11 @@ public class ChessGameDao {
             statement.setLong(2, gameId);
             statement.executeUpdate();
 
-            connection.commit();
+            DatabaseConnection.tryCloseConnection();
 
         } catch (SQLException e) {
             connection.rollback();
-            connection.close();
+            DatabaseConnection.tryCloseConnection();
             throw new RuntimeException("데이터베이스 생성에 실패했습니다." + e.getMessage());
         }
     }
