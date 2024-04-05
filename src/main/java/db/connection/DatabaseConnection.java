@@ -20,7 +20,7 @@ public class DatabaseConnection {
 
     public static Connection getConnection() {
         try {
-            if (connection == null) {
+            if (connection == null || connection.isClosed()) {
                 String url = properties.getProperty("url");
                 String name = properties.getProperty("name");
                 String user = properties.getProperty("username");
@@ -30,7 +30,7 @@ public class DatabaseConnection {
 
                 connection = DriverManager.getConnection("jdbc:mysql://" + url + "/" + name + option, user,
                         password);
-
+                connection.setAutoCommit(false);
             }
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("찾으려는 클래스가 존재하지 않습니다. : " + e.getMessage());
